@@ -1,0 +1,682 @@
+[
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "nexusApp",
+    "model": "contactmessage"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "nexusApp",
+    "model": "faq"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "nexusApp",
+    "model": "planfeature"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "nexusApp",
+    "model": "pricingplan"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "nexusApp",
+    "model": "subscription"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "nexusApp",
+    "model": "teammember"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "nexusApp",
+    "model": "testimonial"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add testimonial",
+    "content_type": [
+      "nexusApp",
+      "testimonial"
+    ],
+    "codename": "add_testimonial"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change testimonial",
+    "content_type": [
+      "nexusApp",
+      "testimonial"
+    ],
+    "codename": "change_testimonial"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete testimonial",
+    "content_type": [
+      "nexusApp",
+      "testimonial"
+    ],
+    "codename": "delete_testimonial"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view testimonial",
+    "content_type": [
+      "nexusApp",
+      "testimonial"
+    ],
+    "codename": "view_testimonial"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add FAQ",
+    "content_type": [
+      "nexusApp",
+      "faq"
+    ],
+    "codename": "add_faq"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change FAQ",
+    "content_type": [
+      "nexusApp",
+      "faq"
+    ],
+    "codename": "change_faq"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete FAQ",
+    "content_type": [
+      "nexusApp",
+      "faq"
+    ],
+    "codename": "delete_faq"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view FAQ",
+    "content_type": [
+      "nexusApp",
+      "faq"
+    ],
+    "codename": "view_faq"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add pricing plan",
+    "content_type": [
+      "nexusApp",
+      "pricingplan"
+    ],
+    "codename": "add_pricingplan"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change pricing plan",
+    "content_type": [
+      "nexusApp",
+      "pricingplan"
+    ],
+    "codename": "change_pricingplan"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete pricing plan",
+    "content_type": [
+      "nexusApp",
+      "pricingplan"
+    ],
+    "codename": "delete_pricingplan"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view pricing plan",
+    "content_type": [
+      "nexusApp",
+      "pricingplan"
+    ],
+    "codename": "view_pricingplan"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add plan feature",
+    "content_type": [
+      "nexusApp",
+      "planfeature"
+    ],
+    "codename": "add_planfeature"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change plan feature",
+    "content_type": [
+      "nexusApp",
+      "planfeature"
+    ],
+    "codename": "change_planfeature"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete plan feature",
+    "content_type": [
+      "nexusApp",
+      "planfeature"
+    ],
+    "codename": "delete_planfeature"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view plan feature",
+    "content_type": [
+      "nexusApp",
+      "planfeature"
+    ],
+    "codename": "view_planfeature"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add team member",
+    "content_type": [
+      "nexusApp",
+      "teammember"
+    ],
+    "codename": "add_teammember"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change team member",
+    "content_type": [
+      "nexusApp",
+      "teammember"
+    ],
+    "codename": "change_teammember"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete team member",
+    "content_type": [
+      "nexusApp",
+      "teammember"
+    ],
+    "codename": "delete_teammember"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view team member",
+    "content_type": [
+      "nexusApp",
+      "teammember"
+    ],
+    "codename": "view_teammember"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Contact Message",
+    "content_type": [
+      "nexusApp",
+      "contactmessage"
+    ],
+    "codename": "add_contactmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Contact Message",
+    "content_type": [
+      "nexusApp",
+      "contactmessage"
+    ],
+    "codename": "change_contactmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Contact Message",
+    "content_type": [
+      "nexusApp",
+      "contactmessage"
+    ],
+    "codename": "delete_contactmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Contact Message",
+    "content_type": [
+      "nexusApp",
+      "contactmessage"
+    ],
+    "codename": "view_contactmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Subscription",
+    "content_type": [
+      "nexusApp",
+      "subscription"
+    ],
+    "codename": "add_subscription"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Subscription",
+    "content_type": [
+      "nexusApp",
+      "subscription"
+    ],
+    "codename": "change_subscription"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Subscription",
+    "content_type": [
+      "nexusApp",
+      "subscription"
+    ],
+    "codename": "delete_subscription"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Subscription",
+    "content_type": [
+      "nexusApp",
+      "subscription"
+    ],
+    "codename": "view_subscription"
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$591YTlY7TQjvlYLibwnMJf$cUmLvrp31HV2aabSl6SGzfEQpgTBkS5kUUXZ/kzNiDw=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "lexi",
+    "first_name": "",
+    "last_name": "",
+    "email": "nwankwoifeanyichukwu2004@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-04-27T18:44:00.150Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
