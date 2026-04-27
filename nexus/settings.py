@@ -179,23 +179,24 @@ default_theme_mode='light'
 # For production, swap to Redis so the cache survives server restarts
 # and works across multiple processes/workers.
 #
-# ─── Cache ────────────────────────────────────────────────────
-if os.getenv('REDIS_URL'):
-    CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": os.getenv("REDIS_URL"),
-            "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            },
-        }
+# ── Dev (default, no extra packages) ──────────────────────────────────────────
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+#     }
+# }
+
+# ── Production with Redis (pip install django-redis) ──────────────────────────
+CACHES = {
+    "default": {
+        "BACKEND":  "django_redis.cache.RedisCache",
+        "LOCATION": os.getenv("REDIS_URL", "redis://127.0.0.1:6379/1"),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
     }
-else:
-    CACHES = {
-        "default": {
-            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        }
-    }
+}
+
 
 
 JAZZMIN_SETTINGS = {
@@ -300,14 +301,13 @@ JAZZMIN_UI_TWEAKS = {
     },
 }
 
-
 # ── Security ──────────────────────────────────────────────────
-SECURE_SSL_REDIRECT          = False
-SECURE_HSTS_SECONDS          = 31536000 if not DEBUG else 0
-SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
-SECURE_HSTS_PRELOAD          = not DEBUG
-SESSION_COOKIE_SECURE        = not DEBUG
-CSRF_COOKIE_SECURE           = not DEBUG
+SECURE_SSL_REDIRECT          = False  # redirect HTTP to HTTPS in production
+SECURE_HSTS_SECONDS          = 31536000   # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD          = True
+SESSION_COOKIE_SECURE        = not DEBUG  # HTTPS-only session cookie
+CSRF_COOKIE_SECURE           = not DEBUG  # HTTPS-only CSRF cookie
 SECURE_BROWSER_XSS_FILTER    = True
 SECURE_CONTENT_TYPE_NOSNIFF  = True
 X_FRAME_OPTIONS              = 'DENY'
