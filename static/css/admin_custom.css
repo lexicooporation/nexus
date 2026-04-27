@@ -1,0 +1,222 @@
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §1  GALAXY FOLD  (280 px – 320 px)
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 320px) {
+
+    /* Sidebar collapses to icon-only – prevent it from eating screen space */
+    .main-sidebar {
+        width: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .content-wrapper,
+    .main-footer {
+        margin-left: 0 !important;
+    }
+
+    /* Navbar brand text: truncate rather than wrap */
+    .brand-text {
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Top navbar icons: tighter spacing */
+    .navbar-nav > .nav-item > .nav-link {
+        padding-left: .35rem !important;
+        padding-right: .35rem !important;
+    }
+
+    /* Dashboard stat cards: stack to a single column */
+    .col-6 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Card numbers: slightly smaller so they don't overflow */
+    .card-body h2[style*="2.2rem"] {
+        font-size: 1.6rem !important;
+    }
+
+    /* Recent-messages avatar column: shrink slightly */
+    .rounded-circle[style*="38px"] {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: .75rem !important;
+    }
+
+    /* Team member avatars */
+    .rounded-circle[style*="52px"] {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: .9rem !important;
+    }
+
+    /* Message truncation: narrower clamp */
+    p.text-truncate[style*="380px"] {
+        max-width: 160px !important;
+    }
+
+    /* Tables: allow horizontal scroll instead of breaking layout */
+    .table-responsive,
+    #result_list {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Change-form fields: full width */
+    .form-row > .field-box,
+    .form-row > div[class^="field-"] {
+        width: 100% !important;
+        float: none !important;
+    }
+
+    /* Breadcrumb: wrap gracefully */
+    .breadcrumb {
+        flex-wrap: wrap;
+        font-size: .75rem;
+    }
+
+    /* Action bar buttons */
+    .object-tools a,
+    input[type="submit"],
+    button[type="submit"] {
+        font-size: .8rem !important;
+        padding: .3rem .6rem !important;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §2  SMALL SCREENS  (≤ 576 px)  – general Jazzmin polish
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 576px) {
+
+    /* Page header: stack title + date vertically */
+    .d-flex.align-items-center.justify-content-between.mb-4 {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: .5rem;
+    }
+
+    /* Quick-actions list: full-width items */
+    .col-lg-4 .card-body a.d-flex {
+        padding-top: .6rem;
+        padding-bottom: .6rem;
+    }
+
+    /* Admin list-filter sidebar: full width on mobile */
+    #changelist-filter {
+        width: 100% !important;
+        float: none !important;
+    }
+
+    #changelist {
+        margin-right: 0 !important;
+    }
+
+    /* Inline admin rows: remove awkward fixed widths */
+    .inline-related .form-row {
+        flex-direction: column;
+    }
+
+    /* Jazzmin horizontal_tabs → collapse to stacked on mobile */
+    .nav-tabs {
+        flex-wrap: wrap;
+    }
+    .nav-tabs .nav-item {
+        flex: 0 0 50%;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §3  "ADD / CHANGE GROUP" – permissions widget
+       The dual <select> widget overflows on any screen < 768 px.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+
+    /* Stack the two select boxes + the arrow buttons vertically */
+    .selector {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+
+    .selector .selector-available,
+    .selector .selector-chosen {
+        width: 100% !important;
+        float: none !important;
+    }
+
+    /* Arrow buttons row: horizontal between the two boxes */
+    .selector ul.selector-chooser {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        width: 100% !important;
+        padding: .25rem 0 !important;
+    }
+
+    .selector ul.selector-chooser li {
+        margin: 0 .5rem !important;
+    }
+
+    /* Make the select elements themselves scrollable & tall enough */
+    .selector select {
+        width: 100% !important;
+        min-height: 140px !important;
+        font-size: .85rem !important;
+    }
+
+    /* Filter input above each select: full width */
+    .selector .selector-filter input {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Related-objects popup link: don't push out of frame */
+    .selector + a,
+    p.help {
+        font-size: .8rem;
+        word-break: break-word;
+    }
+
+    /* The wrapping field row for the permission selector */
+    .form-row.field-permissions {
+        overflow-x: hidden !important;
+    }
+
+    /* Group name field */
+    #id_name {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    /* Overall change-form: no horizontal overflow */
+    #content-main form,
+    .change-form {
+        overflow-x: hidden !important;
+    }
+
+    /* Jazzmin horizontal_tabs: make sure tab panels don't overflow */
+    .tab-content {
+        overflow-x: hidden !important;
+    }
+}
+
+/* Tiny screens: make selector even more compact */
+@media (max-width: 320px) {
+    .selector select {
+        min-height: 100px !important;
+        font-size: .78rem !important;
+    }
+
+    .selector-available h2,
+    .selector-chosen h2 {
+        font-size: .8rem !important;
+    }
+}

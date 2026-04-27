@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+{% block title %}About Us — Nexus{% endblock %}
+{% block meta_desc %}Meet the team building Nexus and learn about our mission.{% endblock %}
+
+{% block extra_css %}
+<style>
+  .nx-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: linear-gradient(var(--nx-border) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--nx-border) 1px, transparent 1px);
+    background-size: 44px 44px;
+    opacity: .3; pointer-events: none; z-index: 0;
+  }
+  .nx-hero { position: relative; overflow: hidden; }
+  .nx-hero .container { position: relative; z-index: 1; }
+
+  .nx-about-img {
+    border-radius: var(--nx-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--nx-shadow-lg);
+    border: 1px solid var(--nx-border);
+    aspect-ratio: 4/3;
+  }
+  .nx-about-img img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+
+  .nx-feature-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 1.25rem;
+  }
+  .nx-value-pill {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--nx-white); border: 1px solid var(--nx-border);
+    border-radius: 99px; padding: .45rem 1rem;
+    font-size: .85rem; font-weight: 500; color: var(--nx-navy);
+    box-shadow: var(--nx-shadow-sm);
+  }
+  .nx-stat-num {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 800; color: #fff; letter-spacing: -.03em;
+    line-height: 1; margin-bottom: .4rem;
+  }
+  .nx-icon-box {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .nx-team-avatar {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--nx-blue-lt), #FDE68A);
+    margin: 0 auto 1rem; overflow: hidden;
+    border: 2px solid var(--nx-white);
+    box-shadow: 0 2px 10px rgba(0,0,0,.1);
+    display: flex; align-items: center; justify-content: center; font-size: 1.75rem;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .nx-team-avatar:hover { transform: scale(1.05); box-shadow: 0 4px 16px rgba(0,0,0,.14); }
+  .nx-team-avatar img { width:100%; height:100%; object-fit:cover; }
+
+
+</style>
+{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- ── Hero ──────────────────────────────────────────────────── -->
+<section class="nx-section nx-hero">
+  <div class="container">
+    <div class="row align-items-center g-5 reveal">
+
+      <!-- Text left -->
+      <div class="col-lg-6">
+        <span class="nx-label">Our story</span>
+        <h1 class="mt-2 mb-3">Built for teams that<br>mean business.</h1>
+        <p style="max-width:480px">
+          We build tools that give growing companies the clarity and speed
+          they need to compete. Join the Nexus community and experience
+          what streamlined operations actually feel like.
+        </p>
+      </div>
+
+      <!-- Image right -->
+      <div class="col-lg-6">
+        <div class="nx-about-img">
+          <img src="{% static 'img/nexus_14.png' %}" alt="The Nexus team">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Mission ───────────────────────────────────────────────── -->
+<section class="nx-section text-center" style="background:var(--nx-white)">
+  <div class="container">
+    <span class="nx-label">Mission</span>
+    <h2 class="mt-2 mb-3">Why we exist</h2>
+    <p class="mx-auto mb-5" style="max-width:640px">
+      At Nexus, we're committed to providing excellent tools to every team
+      that trusts us — whether that's a two-person startup or a 500-person
+      enterprise. We believe well-designed software makes a genuine difference
+      to people's working lives, and we build with that belief at our core.
+    </p>
+    <div class="d-flex flex-wrap gap-2 justify-content-center">
+      <span class="nx-value-pill"><i class="bi bi-person-heart" style="color:var(--nx-blue)"></i> Customer first</span>
+      <span class="nx-value-pill"><i class="bi bi-lightning-charge" style="color:var(--nx-amber)"></i> Move fast</span>
+      <span class="nx-value-pill"><i class="bi bi-shield-check" style="color:var(--nx-blue)"></i> Trust &amp; transparency</span>
+      <span class="nx-value-pill"><i class="bi bi-graph-up-arrow" style="color:var(--nx-blue)"></i> Always improving</span>
+      <span class="nx-value-pill"><i class="bi bi-people-fill" style="color:var(--nx-blue)"></i> Work as one team</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stats bar ─────────────────────────────────────────────── -->
+<section style="background:var(--nx-navy);padding:3.5rem 0;">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <div class="col-6 col-md-3 reveal">
+        <p class="nx-stat-num">800+</p>
+        <p class="small mb-0" style="color:rgba(255,255,255,.55)">Paying customers</p>
+      </div>
+      <div class="col-6 col-md-3 reveal">
+        <p class="nx-stat-num">1,200+</p>
+        <p class="small mb-0" style="color:rgba(255,255,255,.55)">Projects delivered</p>
+      </div>
+      <div class="col-6 col-md-3 reveal">
+        <p class="nx-stat-num">40%</p>
+        <p class="small mb-0" style="color:rgba(255,255,255,.55)">Average time saved</p>
+      </div>
+      <div class="col-6 col-md-3 reveal">
+        <p class="nx-stat-num">98%</p>
+        <p class="small mb-0" style="color:rgba(255,255,255,.55)">Customer satisfaction</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Goals / Roadmap ───────────────────────────────────────── -->
+<section class="nx-section" style="background:var(--nx-light)">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="nx-label">Where we're headed</span>
+      <h2 class="mt-2">Our goals for 2026</h2>
+      <p class="mt-2 mx-auto" style="max-width:520px">
+        We're not standing still. Here's what we're building toward this year.
+      </p>
+    </div>
+    <div class="row g-4">
+      <div class="col-sm-6 col-lg-4 reveal">
+        <div class="nx-card h-100">
+          <div class="nx-icon-box mb-3" style="background:var(--nx-blue-lt)">
+            <i class="bi bi-globe2 fs-5" style="color:var(--nx-blue)"></i>
+          </div>
+          <p class="fw-bold mb-2" style="font-family:'Sora',sans-serif;color:var(--nx-navy)">Global expansion</p>
+          <p class="small mb-3">Opening dedicated support in EMEA and APAC so every customer gets help in their timezone.</p>
+          <span class="badge rounded-pill" style="background:var(--nx-blue-lt);color:var(--nx-blue);font-size:.72rem;font-weight:600;">In progress</span>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 reveal">
+        <div class="nx-card h-100">
+          <div class="nx-icon-box mb-3" style="background:var(--nx-blue-lt)">
+            <i class="bi bi-cpu fs-5" style="color:var(--nx-blue)"></i>
+          </div>
+          <p class="fw-bold mb-2" style="font-family:'Sora',sans-serif;color:var(--nx-navy)">AI-powered insights</p>
+          <p class="small mb-3">Embedding intelligent suggestions directly into workflows — smarter recommendations without leaving Nexus.</p>
+          <span class="badge rounded-pill" style="background:var(--nx-blue-lt);color:var(--nx-blue);font-size:.72rem;font-weight:600;">Coming Q3</span>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 reveal">
+        <div class="nx-card h-100">
+          <div class="nx-icon-box mb-3" style="background:var(--nx-blue-lt)">
+            <i class="bi bi-puzzle fs-5" style="color:var(--nx-blue)"></i>
+          </div>
+          <p class="fw-bold mb-2" style="font-family:'Sora',sans-serif;color:var(--nx-navy)">100+ integrations</p>
+          <p class="small mb-3">Doubling our integration library so Nexus slots into every stack — Slack, Jira, Salesforce, and beyond.</p>
+          <span class="badge rounded-pill" style="background:var(--nx-blue-lt);color:var(--nx-blue);font-size:.72rem;font-weight:600;">Planned Q4</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Notable projects ──────────────────────────────────────── -->
+<section class="nx-section" style="background:var(--nx-white)">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="nx-label">Case highlights</span>
+      <h2 class="mt-2">Projects we're proud of</h2>
+      <p class="mt-2 mx-auto" style="max-width:520px">A snapshot of the work our customers have shipped using Nexus.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-sm-6 reveal">
+        <div class="nx-card h-100 d-flex flex-column gap-3 align-items-start">
+          <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--nx-blue-lt),#FFFBEB);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">
+            <i class="bi bi-gear-wide-connected fs-5" style="color:var(--nx-blue)"></i>
+          </div>
+          <div>
+            <p class="fw-bold mb-1" style="font-family:'Sora',sans-serif;color:var(--nx-navy);font-size:.95rem">Waverly — Operations Overhaul</p>
+            <p class="small mb-2">Migrated 14 disconnected tools into one workspace. Result: 3 fewer weekly meetings and a 35% drop in missed deadlines.</p>
+            <span class="small fw-semibold" style="color:var(--nx-blue)">Operations · 200 users</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 reveal">
+        <div class="nx-card h-100 d-flex flex-column gap-3 align-items-start">
+          <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--nx-blue-lt),#FFFBEB);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">
+            <i class="bi bi-rocket-takeoff fs-5" style="color:var(--nx-blue)"></i>
+          </div>
+          <div>
+            <p class="fw-bold mb-1" style="font-family:'Sora',sans-serif;color:var(--nx-navy);font-size:.95rem">Brightpath — Series A Launch</p>
+            <p class="small mb-2">Coordinated their Series A across engineering, legal, and finance — closing in 60 days, two weeks ahead of target.</p>
+            <span class="small fw-semibold" style="color:var(--nx-blue)">Finance & Legal · 45 users</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 reveal">
+        <div class="nx-card h-100 d-flex flex-column gap-3 align-items-start">
+          <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--nx-blue-lt),#FFFBEB);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">
+            <i class="bi bi-box-seam fs-5" style="color:var(--nx-blue)"></i>
+          </div>
+          <div>
+            <p class="fw-bold mb-1" style="font-family:'Sora',sans-serif;color:var(--nx-navy);font-size:.95rem">Pinnacle — Product Relaunch</p>
+            <p class="small mb-2">Rebuilt their entire roadmap process in Nexus, shipping their relaunch on time for the first time in three years.</p>
+            <span class="small fw-semibold" style="color:var(--nx-blue)">Product · 80 users</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 reveal">
+        <div class="nx-card h-100 d-flex gap-3 flex-column align-items-start">
+          <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--nx-blue-lt),#FFFBEB);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">
+            <i class="bi bi-globe-americas fs-5" style="color:var(--nx-blue)"></i>
+          </div>
+          <div>
+            <p class="fw-bold mb-1" style="font-family:'Sora',sans-serif;color:var(--nx-navy);font-size:.95rem">Solera — Remote-First Rollout</p>
+            <p class="small mb-2">Onboarded 120 people across 8 countries using Nexus as their single source of truth from day one.</p>
+            <span class="small fw-semibold" style="color:var(--nx-blue)">Remote ops · 120 users</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── Team ───────────────────────────────────────────────────── -->
+<section class="nx-section" style="background:var(--nx-white)">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="nx-label">The team</span>
+      <h2 class="mt-2">Meet the people building Nexus</h2>
+    </div>
+    <div class="row g-4 text-center">
+      {% for member in team %}
+      <div class="col-6 col-md-4 col-lg-3 reveal">
+        <div class="nx-team-avatar">
+          {% if member.photo %}<img src="{{ member.photo.url }}" alt="{{ member.name }}">
+          {% else %}👤{% endif %}
+        </div>
+        <p class="fw-bold mb-0 small" style="color:var(--nx-navy)">{{ member.name }}</p>
+        <p class="small mb-0" style="color:var(--nx-gray)">{{ member.role }}</p>
+      </div>
+      {% empty %}
+      <p class="text-center text-muted col-12">Our team is growing fast! Check back soon to meet everyone.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Banner ────────────────────────────────────────────── -->
+<section class="nx-section-sm" style="background:var(--nx-light)">
+  <div class="container">
+    <div class="nx-cta-banner reveal">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <h2 class="mb-1">Get started with Nexus today</h2>
+          <p class="mt-1 mb-0">Start optimising your processes — no credit card required.</p>
+        </div>
+        <div class="col-12 col-lg-4 text-lg-end">
+          <a href="/accounts/signup/" class="btn-nx-primary" style="font-size:.95rem;padding:.75rem 2rem">
+            Sign up now &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

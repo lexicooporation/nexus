@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+{% block title %}Log in — Nexus{% endblock %}
+{% block meta_desc %}Log in to your Nexus account.{% endblock %}
+
+{% block extra_css %}
+<style>
+  .nx-auth-page {
+    min-height: calc(100vh - 400px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .nx-auth-form-side {
+    display: flex; align-items: center; justify-content: center;
+    padding: 3rem 2rem;
+    background: var(--nx-white);
+  }
+  .nx-auth-inner { width: 100%; max-width: 400px; }
+  .nx-auth-logo {
+    font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.25rem;
+    color: var(--nx-navy); letter-spacing: -.02em;
+    display: inline-flex; align-items: center; gap: .4rem;
+    margin-bottom: 2.5rem;
+  }
+  .nx-auth-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.75rem; font-weight: 700; color: var(--nx-navy);
+    line-height: 1.2; margin-bottom: .4rem;
+  }
+  .nx-form-label {
+    display: block; font-size: .82rem; font-weight: 600;
+    color: var(--nx-navy); margin-bottom: .4rem; font-family: 'Sora', sans-serif;
+  }
+  .nx-input {
+    width: 100%; border: 1.5px solid var(--nx-border);
+    border-radius: var(--nx-radius); padding: .75rem 1rem; font-size: .925rem;
+    color: var(--nx-navy); background: var(--nx-white);
+    transition: border-color .15s, box-shadow .15s; font-family: 'Inter', sans-serif;
+  }
+  .nx-input::placeholder { color: #94A3B8; }
+  .nx-input:focus {
+    outline: none; border-color: var(--nx-blue);
+    box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+  }
+  .nx-input.is-invalid { border-color: #DC2626; }
+  .nx-field-error { font-size: .78rem; color: #DC2626; margin-top: .3rem; }
+
+  .nx-pw-wrap { position: relative; }
+  .nx-pw-wrap .nx-input { padding-right: 2.75rem; }
+  .nx-pw-toggle {
+    position: absolute; right: .85rem; top: 50%; transform: translateY(-50%);
+    background: none; border: none; padding: 0; cursor: pointer;
+    color: #94A3B8; font-size: 1rem; line-height: 1; transition: color .15s;
+  }
+  .nx-pw-toggle:hover { color: var(--nx-blue); }
+
+  .nx-auth-divider {
+    text-align: center; position: relative; margin: 1.5rem 0;
+    color: var(--nx-gray); font-size: .82rem;
+  }
+  .nx-auth-divider::before, .nx-auth-divider::after {
+    content: ''; position: absolute; top: 50%;
+    width: calc(50% - 1.5rem); height: 1px; background: var(--nx-border);
+  }
+  .nx-auth-divider::before { left: 0; }
+  .nx-auth-divider::after  { right: 0; }
+
+  /* Visual side */
+  .nx-auth-visual {
+    position: relative; overflow: hidden; background: var(--nx-navy);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 3rem;
+  }
+  .nx-auth-visual::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(80,123,216,.55) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(165,204,246,.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 60% 80%, rgba(70,98,160,.3) 0%, transparent 50%);
+    animation: meshShift 8s ease-in-out infinite alternate;
+  }
+  @keyframes meshShift {
+    0%   { transform: scale(1)    rotate(0deg); }
+    100% { transform: scale(1.08) rotate(3deg); }
+  }
+  .nx-orb { position: absolute; border-radius: 50%; animation: orbFloat ease-in-out infinite; }
+  .nx-orb-a { width:260px;height:260px; background:rgba(37,99,235,.22); top:-60px; right:-60px; animation-duration:7s; }
+  .nx-orb-b { width:180px;height:180px; background:rgba(37,99,235,.22); bottom:-40px; left:-40px; animation-duration:9s; animation-delay:.8s; }
+  .nx-orb-c { width:100px;height:100px; background:rgba(37,99,235,.28); bottom:30%; right:15%; animation-duration:6s; animation-delay:1.5s; }
+  @keyframes orbFloat {
+    0%,100% { transform: translateY(0)    scale(1); }
+    50%      { transform: translateY(-18px) scale(1.05); }
+  }
+  .nx-visual-content { position: relative; z-index: 1; text-align: center; }
+  .nx-visual-content h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(1.6rem, 2.5vw, 2.1rem); font-weight: 700;
+    color: #fff; line-height: 1.25; margin-bottom: 1rem;
+  }
+  .nx-visual-content p { color: rgba(255,255,255,.6); font-size: .95rem; max-width: 300px; margin: 0 auto 2rem; }
+  .nx-visual-pills { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; }
+  .nx-visual-pill {
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15);
+    border-radius: 99px; padding: .35rem .9rem;
+    font-size: .78rem; font-weight: 500; color: rgba(255,255,255,.8);
+    backdrop-filter: blur(4px);
+  }
+  @media (max-width: 991px) {
+    .nx-auth-page { grid-template-columns: 1fr; }
+    .nx-auth-visual { display: none; }
+    .nx-auth-form-side { min-height: calc(100vh - 70px); }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="nx-auth-page">
+
+  <!-- Form side -->
+  <div class="nx-auth-form-side">
+    <div class="nx-auth-inner">
+      <a href="{% url 'home' %}" class="nx-auth-logo">
+        <i class="bi bi-bullseye"></i> Nexus
+      </a>
+      <p class="nx-auth-title">Welcome back</p>
+      <p class="mb-4" style="color:var(--nx-gray);font-size:.9rem">Log in to your account to continue.</p>
+
+      {% if form.non_field_errors %}
+      <div class="mb-3 p-3 rounded-3" style="background:#FEF2F2;color:#991B1B;font-size:.875rem;">
+        <i class="bi bi-exclamation-circle me-1"></i>
+        {{ form.non_field_errors|join:", " }}
+      </div>
+      {% endif %}
+
+      <form method="post" novalidate>
+        {% csrf_token %}
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="{{ form.email.id_for_label }}" class="nx-form-label">Email address</label>
+          <input type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:'' }}" placeholder="you@example.com" autocomplete="email" class="nx-input {% if form.email.errors %}is-invalid{% endif %}">
+          {% if form.email.errors %}
+            <p class="nx-field-error">{{ form.email.errors|join:", " }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Password -->
+        <div class="mb-1">
+          <label for="{{ form.password.id_for_label }}" class="nx-form-label">Password</label>
+          <div class="nx-pw-wrap">
+            <input type="password" name="{{ form.password.html_name }}" id="{{ form.password.id_for_label }}" placeholder="Your password" autocomplete="current-password" class="nx-input {% if form.password.errors %}is-invalid{% endif %}">
+            <button type="button" class="nx-pw-toggle" data-target="{{ form.password.id_for_label }}" aria-label="Toggle password visibility">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
+          {% if form.password.errors %}
+            <p class="nx-field-error">{{ form.password.errors|join:", " }}</p>
+          {% endif %}
+        </div>
+
+        <div class="text-end mb-4">
+          <a href="{% url 'password_reset' %}" style="font-size:.82rem;color:var(--nx-blue);">
+            Forgot password?
+          </a>
+        </div>
+
+        <button type="submit" class="btn-nx-primary w-100"
+                style="padding:.85rem;font-size:.95rem;border-radius:var(--nx-radius);">
+          Log in <i class="bi bi-box-arrow-in-right ms-1"></i>
+        </button>
+      </form>
+
+      <div class="nx-auth-divider">or</div>
+      <p class="text-center mb-0" style="font-size:.875rem;color:var(--nx-gray)">
+        Don't have an account?
+        <a href="{% url 'signup' %}" style="color:var(--nx-blue);font-weight:600;">Sign up free</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Visual side -->
+  <div class="nx-auth-visual">
+    <div class="nx-orb nx-orb-a"></div>
+    <div class="nx-orb nx-orb-b"></div>
+    <div class="nx-orb nx-orb-c"></div>
+    <div class="nx-visual-content">
+      <h2>Work smarter,<br>not harder.</h2>
+      <p>Join 800+ teams already running their operations on Nexus.</p>
+      <div class="nx-visual-pills">
+        <span class="nx-visual-pill"><i class="bi bi-shield-check me-1"></i>SOC 2 Certified</span>
+        <span class="nx-visual-pill"><i class="bi bi-lightning-charge me-1"></i>Setup in minutes</span>
+        <span class="nx-visual-pill"><i class="bi bi-people me-1"></i>800+ teams</span>
+        <span class="nx-visual-pill"><i class="bi bi-star me-1"></i>98% satisfaction</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('.nx-pw-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById(btn.dataset.target);
+      const icon  = btn.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace('bi-eye', 'bi-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.replace('bi-eye-slash', 'bi-eye');
+      }
+    });
+  });
+</script>
+{% endblock %}

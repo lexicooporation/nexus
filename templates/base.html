@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Nexus — Work smarter, together{% endblock %}</title>
+  <meta name="description" content="{% block meta_desc %}Nexus helps growing teams manage projects, automate workflows, and hit goals faster.{% endblock %}">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/nexus_17.png' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+<!-- Nav -->
+<nav class="navbar navbar-expand-lg nx-navbar sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}"><i class="bi bi-bullseye"></i> Nexus</a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav mx-auto gap-lg-1">
+        <li class="nav-item">
+          <a class="nav-link {% if active_page == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if active_page == 'pricing' %}active{% endif %}"href="{% url 'pricing' %}">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if active_page == 'about' %}active{% endif %}" href="{% url 'about' %}">About us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if active_page == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact</a>
+        </li>
+      </ul>
+      <div class="d-flex gap-2 mt-3 mt-lg-0 align-items-center">
+        {% if user.is_authenticated %}
+          <span class="small fs-6" style="color:var(--nx-gray)">
+            <i class="bi bi-person-circle me-1"></i>{{ user.username }}
+          </span>
+          <form method="post" action="{% url 'logout' %}" class="mb-0">
+            {% csrf_token %}
+            <button type="submit" class="btn-nx-outline">Log out</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}"  class="btn-nx-outline">Log in</a>
+          <a href="{% url 'signup' %}" class="btn-nx-primary text-decoration-none">Sign up</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<!--  Content  -->
+{% block content %}{% endblock %}
+
+<!-- Footer  -->
+<footer class="nx-footer">
+  <div class="container">
+    <div class="row g-4">
+
+      <div class="col-lg-4">
+        <a href="{% url 'home' %}" class="nx-footer-brand d-block mb-2"><i class="bi bi-bullseye"></i> Nexus</a>
+        <p class="nx-footer-copy">
+          2026 © Nexus Inc.<br>All rights reserved.
+        </p>
+      </div>
+
+      <div class="col-6 col-lg-2">
+        <p class="nx-footer-heading">Pages</p>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-1"><a href="{% url 'home' %}">Home</a></li>
+          <li class="mb-1"><a href="{% url 'pricing' %}">Pricing</a></li>
+          <li class="mb-1"><a href="{% url 'about' %}">About us</a></li>
+          <li class="mb-1"><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-lg-2">
+        <p class="nx-footer-heading">Social</p>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-1"><a href="https://x.com/lexyystore02">Twitter</a></li>
+          <li class="mb-1"><a href="https://linkedin.com/in/nwankwo-ifeanyi-5014a8227">LinkedIn</a></li>
+          <li class="mb-1"><a href="https://instagram.com/">Instagram</a></li>
+          <li class="mb-1"><a href="https://facebook.com/">Facebook</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-lg-2">
+        <p class="nx-footer-heading">Legal</p>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-1"><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+          <li class="mb-1"><a href="{% url 'terms' %}">Terms of Service</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <hr class="nx-footer-divider">
+    <p class="nx-footer-copy mb-0">Built by lexiworld</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+//  Scroll-reveal animation using Intersection Observer API
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }});
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Auto-dismiss flash messages after 5 seconds
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(() => {
+    document.querySelectorAll('.alert').forEach(alert => {
+      const closeBtn = alert.querySelector('.btn-close');
+      if (closeBtn) {
+        closeBtn.click();
+      } else {
+        alert.style.transition = 'opacity 0.5s';
+        alert.style.opacity = '0';
+        setTimeout(() => alert.remove(), 500);}
+        }
+      );}, 5000);});
+</script>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% block title %}Contact — Nexus{% endblock %}
+{% block meta_desc %}Get in touch with the Nexus team. We'd love to hear from you.{% endblock %}
+
+{% block extra_css %}
+<style>
+  .nx-contact-panel {
+    border-radius: var(--nx-radius-lg);
+    background: linear-gradient(145deg, var(--nx-blue-lt) 0%, #FFFBEB 100%);
+    min-height: 400px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    border: 1px solid var(--nx-border);
+  }
+  .nx-orb { position: absolute; border-radius: 50%; opacity: .45; }
+  .nx-orb-1 { width:180px;height:180px; background:var(--nx-blue);  top:-50px;  left:-50px; }
+  .nx-orb-2 { width:130px;height:130px; background:var(--nx-amber); bottom:-35px;right:-35px; }
+  .nx-orb-3 { width:80px; height:80px;  background:var(--nx-blue);  bottom:60px; left:50px; }
+  .nx-contact-emoji { font-size: 5rem; position: relative; z-index: 1; }
+
+  .nx-contact-info {
+    position: absolute; bottom: 1.25rem; left: 0; right: 0;
+    display: flex; justify-content: center; gap: .6rem;
+    flex-wrap: wrap; z-index: 1; padding: 0 1rem;
+  }
+  .nx-contact-pill {
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(6px);
+    border-radius: 99px; padding: .3rem .85rem;
+    font-size: .75rem; font-weight: 500; color: var(--nx-navy);
+    display: flex; align-items: center; gap: .4rem;
+    border: 1px solid rgba(255,255,255,.6);
+  }
+
+  .nx-form-label {
+    display: block; font-size: .82rem; font-weight: 600;
+    color: var(--nx-navy); margin-bottom: .4rem;
+    font-family: 'Sora', sans-serif;
+  }
+  .form-control {
+    border: 1.5px solid var(--nx-border);
+    border-radius: var(--nx-radius);
+    padding: .75rem 1rem; font-size: .925rem;
+    color: var(--nx-navy); background: var(--nx-white);
+    transition: border-color .15s, box-shadow .15s; width: 100%;
+  }
+  .form-control::placeholder { color: #94A3B8; }
+  .form-control:focus {
+    outline: none; border-color: var(--nx-blue);
+    box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+  }
+  .form-control.is-invalid { border-color: #DC2626; }
+  .invalid-feedback { font-size: .8rem; color: #DC2626; margin-top: .3rem; }
+
+  .nx-icon-box {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .nx-faq-card {
+    padding: 1.25rem 1.5rem;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ── Form section ───────────────────────────────────────────── -->
+<section class="nx-section-sm">
+  <div class="container">
+    <div class="row align-items-center g-5 reveal">
+
+      <!-- Decorative panel — hidden below lg -->
+      <div class="col-lg-5 d-none d-lg-block">
+        <div class="nx-contact-panel">
+          <div class="nx-orb nx-orb-1"></div>
+          <div class="nx-orb nx-orb-2"></div>
+          <div class="nx-orb nx-orb-3"></div>
+          <span class="nx-contact-emoji">✉️</span>
+          <div class="nx-contact-info">
+            <span class="nx-contact-pill">📍 Remote-first team</span>
+            <span class="nx-contact-pill">⚡ Replies within 24h</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="col-lg-7">
+        <span class="nx-label">Get in touch</span>
+        <h1 class="mt-2 mb-1">Contact Us</h1>
+        <p class="mb-4">Explore the future with us. Feel free to reach out.</p>
+
+        <form method="post" novalidate>
+          {% include 'partials/messages.html' %}
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="{{ form.full_name.id_for_label }}" class="nx-form-label">{{ form.full_name.label }}</label>
+            <input type="text" name="{{ form.full_name.html_name }}" id="{{ form.full_name.id_for_label }}" value="{{ form.full_name.value|default:'' }}" placeholder="Full Name" autocomplete="name" class="form-control {% if form.full_name.errors %}is-invalid{% endif %}">
+            {% if form.full_name.errors %}
+              <div class="invalid-feedback">{{ form.full_name.errors|join:", " }}</div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="{{ form.email.id_for_label }}" class="nx-form-label">{{ form.email.label }}</label>
+            <input type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:'' }}" placeholder="Email address" autocomplete="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}">
+            {% if form.email.errors %}
+              <div class="invalid-feedback">{{ form.email.errors|join:", " }}</div>
+            {% endif %}
+          </div>
+
+          <div class="mb-4">
+            <label for="{{ form.message.id_for_label }}" class="nx-form-label">{{ form.message.label }}</label>
+            <textarea name="{{ form.message.html_name }}" id="{{ form.message.id_for_label }}" rows="5" placeholder="How can we help?" class="form-control {% if form.message.errors %}is-invalid{% endif %}">
+              {{ form.message.value|default:'' }}
+            </textarea>
+            {% if form.message.errors %}
+              <div class="invalid-feedback">{{ form.message.errors|join:", " }}</div>
+            {% endif %}
+          </div>
+
+          <button type="submit" class="btn-nx-primary w-100 d-flex align-items-center justify-content-center" style="font-size:.95rem; padding:.85rem; border-radius:var(--nx-radius)">
+            Send message<i class="bi bi-box-arrow-in-down fs-4 mx-2"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── Contact FAQ ───────────────────────────────────────────── -->
+<section class="nx-section-sm" style="background:var(--nx-white)">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+
+      <div class="col-md-12 reveal">
+        <span class="nx-label">Quick answers</span>
+        <h1 class="mt-2 mb-3">Before you send</h2>
+        <p class="mb-4">Most questions are answered here. If yours isn't, the form above goes straight to a human — no bots.</p>
+        <a href="{% url 'pricing' %}" class="btn-nx-outline">View pricing &rarr;</a>
+      </div>
+
+      <div class="col-md-12">
+        <div class="d-flex flex-column gap-3">
+
+          <div class="nx-card nx-faq-card reveal">
+            <div class="d-flex flex-column flex-md-row gap-3 align-items-start">
+              <div class="nx-icon-box" style="background:var(--nx-blue-lt);">
+                <i class="bi bi-clock-history small" style="color:var(--nx-blue)"></i>
+              </div>
+              <div>
+                <p class="fw-semibold mb-1" style="font-family:'Sora',sans-serif;color:var(--nx-navy);font-size:.95rem">How quickly will you respond?</p>
+                <p class="small mb-0">We respond to all messages within 24 hours on business days. Priority support customers get a response within 4 hours.</p>
+              </div>
+            </div>
+          </div>
+          <div class="nx-card nx-faq-card reveal">
+            <div class="d-flex flex-column flex-md-row gap-3 align-items-start">
+              <div class="nx-icon-box" style="background:var(--nx-blue-lt);">
+                <i class="bi bi-headset small" style="color:var(--nx-blue)"></i>
+              </div>
+              <div>
+                <p class="fw-semibold mb-1" style="font-family:'Sora',sans-serif;color:var(--nx-navy);font-size:.95rem">Is there phone support?</p>
+                <p class="small mb-0">Phone support is available on our Scale plan. All other plans are covered by email and live chat.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="nx-card nx-faq-card reveal">
+            <div class="d-flex flex-column flex-md-row gap-3 align-items-start">
+              <div class="nx-icon-box" style="background:var(--nx-blue-lt);">
+                <i class="bi bi-building small" style="color:var(--nx-blue)"></i>
+              </div>
+              <div>
+                <p class="fw-semibold mb-1" style="font-family:'Sora',sans-serif;color:var(--nx-navy);font-size:.95rem">Do you offer enterprise pricing?</p>
+                <p class="small mb-0">Yes. For teams of 50+, contact us directly and we'll put together a custom package that fits your requirements.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="nx-card nx-faq-card reveal">
+            <div class="d-flex flex-column flex-md-row gap-3 align-items-start">
+              <div class="nx-icon-box" style="background:var(--nx-blue-lt);">
+                <i class="bi bi-shield-check small" style="color:var(--nx-blue)"></i>
+              </div>
+              <div>
+                <p class="fw-semibold mb-1" style="font-family:'Sora',sans-serif;color:var(--nx-navy);font-size:.95rem">Is my data safe when I contact you?</p>
+                <p class="small mb-0">Absolutely. We only use your information to respond to your enquiry and never share it with third parties.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,370 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Legal — Nexus{% endblock %}
+{% block meta_desc %}Nexus Privacy Policy and Terms of Service.{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* ── Page layout ────────────────────────────────────── */
+  .nx-legal-wrap {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    padding-block: 3.5rem;
+    align-items: start;
+  }
+
+  /* ── Sidebar ────────────────────────────────────────── */
+  .nx-legal-sidebar {
+    position: sticky;
+    top: 90px;
+  }
+  .nx-sidebar-section {
+    margin-bottom: 2rem;
+  }
+  .nx-sidebar-heading {
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--nx-gray);
+    margin-bottom: .75rem;
+  }
+  .nx-sidebar-link {
+    display: block;
+    font-size: .875rem;
+    color: var(--nx-gray);
+    padding: .35rem .75rem;
+    border-radius: 8px;
+    margin-bottom: .2rem;
+    transition: background .15s, color .15s;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+  }
+  .nx-sidebar-link:hover {
+    color: var(--nx-blue);
+    background: var(--nx-blue-lt);
+  }
+  .nx-sidebar-link.active {
+    color: var(--nx-blue);
+    background: var(--nx-blue-lt);
+    font-weight: 600;
+  }
+
+  /* ── Content ────────────────────────────────────────── */
+  .nx-legal-content { min-width: 0; }
+
+  /* Section panels */
+  .nx-legal-panel {
+    background: var(--nx-white);
+    border: 1px solid var(--nx-border);
+    border-radius: var(--nx-radius-lg);
+    padding: 2.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--nx-shadow-sm);
+  }
+
+  .nx-legal-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--nx-border);
+  }
+  .nx-legal-panel-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .nx-legal-panel-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.35rem; font-weight: 700;
+    color: var(--nx-navy); margin: 0;
+  }
+  .nx-legal-date {
+    font-size: .78rem; color: var(--nx-gray);
+    margin-top: .2rem;
+  }
+
+  /* Article sections within a panel */
+  .nx-article { margin-bottom: 1.75rem; }
+  .nx-article:last-child { margin-bottom: 0; }
+
+  .nx-article-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; border-radius: 6px;
+    background: var(--nx-blue-lt); color: var(--nx-blue);
+    font-family: 'Sora', sans-serif; font-weight: 700; font-size: .72rem;
+    flex-shrink: 0; margin-right: .6rem;
+  }
+  .nx-article h3 {
+    font-family: 'Sora', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--nx-navy);
+    display: flex; align-items: center;
+    margin-bottom: .75rem;
+  }
+  .nx-article p, .nx-article li {
+    font-size: .9rem; color: var(--nx-gray);
+    line-height: 1.75;
+  }
+  .nx-article ul {
+    list-style: none; padding: 0; margin: .5rem 0;
+  }
+  .nx-article ul li {
+    display: flex; align-items: baseline; gap: .6rem;
+    padding: .3rem 0;
+    border-bottom: 1px solid var(--nx-border);
+  }
+  .nx-article ul li:last-child { border-bottom: none; }
+  .nx-article ul li::before {
+    content: '';
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--nx-blue);
+    flex-shrink: 0; margin-top: .45rem;
+  }
+  .nx-article a { color: var(--nx-blue); text-decoration: none; }
+  .nx-article a:hover { text-decoration: underline; }
+
+  /* Scroll-to anchors account for sticky nav */
+  [id] { scroll-margin-top: 88px; }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 991px) {
+    .nx-legal-wrap { grid-template-columns: 1fr; }
+    .nx-legal-sidebar { position: static; display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+    .nx-sidebar-section { margin-bottom: 0; }
+    .nx-sidebar-heading { display: none; }
+    .nx-legal-sidebar .nx-sidebar-link { border-radius: 99px; border-left: none; }
+  }
+  @media (max-width: 575px) {
+    .nx-legal-panel { padding: 1.5rem; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ── Hero ──────────────────────────────────────────────────── -->
+<section class="nx-section-sm" style="background:var(--nx-navy);position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0; background:radial-gradient(ellipse at 20% 60%,rgba(37,99,235,.4) 0%,transparent 60%), radial-gradient(ellipse at 80% 30%,rgba(245,158,11,.25) 0%,transparent 55%); pointer-events:none;"></div>
+  <div style="position:absolute;inset:0; background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;"></div>
+  <div class="container text-center" style="position:relative;z-index:1;">
+    <span class="nx-label">Nexus Legal</span>
+    <h1 class="mt-2" style="color:#fff">Privacy &amp; Terms</h1>
+    <p class="mt-2" style="color:rgba(255,255,255,.6);max-width:440px;margin-inline:auto;">
+      Last updated March 2026. Questions? Email
+      <a href="mailto:legal@nexus.io" style="color:rgba(255,255,255,.85);">legal@nexus.io</a>
+    </p>
+  </div>
+</section>
+
+<!-- ── Body ──────────────────────────────────────────────────── -->
+<div class="container">
+  <div class="nx-legal-wrap">
+
+    <!-- ── Sidebar ──────────────────────────────────── -->
+    <aside class="nx-legal-sidebar" id="legal-sidebar">
+      <div class="nx-sidebar-section">
+        <p class="nx-sidebar-heading">Privacy Policy</p>
+        <a href="#privacy"          class="nx-sidebar-link">Overview</a>
+        <a href="#privacy-collect"  class="nx-sidebar-link">Information We Collect</a>
+        <a href="#privacy-use"      class="nx-sidebar-link">How We Use It</a>
+        <a href="#privacy-security" class="nx-sidebar-link">Data Security</a>
+        <a href="#privacy-rights"   class="nx-sidebar-link">Your Rights</a>
+        <a href="#privacy-cookies"  class="nx-sidebar-link">Cookies</a>
+        <a href="#privacy-contact"  class="nx-sidebar-link">Contact</a>
+      </div>
+      <div class="nx-sidebar-section">
+        <p class="nx-sidebar-heading">Terms of Service</p>
+        <a href="#terms"            class="nx-sidebar-link">Overview</a>
+        <a href="#terms-accounts"   class="nx-sidebar-link">Account Terms</a>
+        <a href="#terms-use"        class="nx-sidebar-link">Acceptable Use</a>
+        <a href="#terms-payment"    class="nx-sidebar-link">Payments</a>
+        <a href="#terms-ip"         class="nx-sidebar-link">Intellectual Property</a>
+        <a href="#terms-liability"  class="nx-sidebar-link">Liability</a>
+        <a href="#terms-contact"    class="nx-sidebar-link">Contact</a>
+      </div>
+    </aside>
+
+    <!-- ── Content ──────────────────────────────────── -->
+    <main class="nx-legal-content">
+
+      <!-- ────────────────────────────────────────────────
+           PRIVACY POLICY
+      ──────────────────────────────────────────────────── -->
+      <div id="privacy" class="nx-legal-panel">
+        <div class="nx-legal-panel-header">
+          <div class="nx-legal-panel-icon" style="background:var(--nx-blue-lt)">
+            <i class="bi bi-shield-lock fs-5" style="color:var(--nx-blue)"></i>
+          </div>
+          <div>
+            <h2 class="nx-legal-panel-title">Privacy Policy</h2>
+            <p class="nx-legal-date mb-0">Last updated: March 2026</p>
+          </div>
+        </div>
+        <p style="font-size:.9rem;color:var(--nx-gray);">
+          At Nexus we take your privacy seriously. This policy explains how we collect,
+          use, and safeguard your information when you use our platform and services.
+        </p>
+      </div>
+
+      <div id="privacy-collect" class="nx-legal-panel">
+        <div class="nx-article">
+          <h3><span class="nx-article-num">1</span>Information We Collect</h3>
+          <p><strong style="color:var(--nx-navy)">Personal Data</strong> — When you sign up, contact us, or use our services we may collect your name, email address, company name, and billing details.</p>
+          <p class="mt-2"><strong style="color:var(--nx-navy)">Usage Data</strong> — We automatically collect information about how you interact with our platform including IP addresses, browser type, pages visited, and feature usage.</p>
+        </div>
+      </div>
+
+      <div id="privacy-use" class="nx-legal-panel">
+        <div class="nx-article">
+          <h3><span class="nx-article-num">2</span>How We Use Your Information</h3>
+          <ul>
+            <li>Provide, operate, and maintain our services</li>
+            <li>Improve, personalise, and expand our platform</li>
+            <li>Communicate updates, security alerts, and support</li>
+            <li>Process transactions and send billing information</li>
+            <li>Comply with legal obligations</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="privacy-security" class="nx-legal-panel">
+        <div class="nx-article">
+          <h3><span class="nx-article-num">3</span>Data Security &amp; Retention</h3>
+          <p>We implement industry-standard security measures including encryption, access controls, and regular audits. We retain your personal information for as long as your account is active or as needed to provide services. You may request deletion at any time.</p>
+        </div>
+      </div>
+
+      <div id="privacy-rights" class="nx-legal-panel">
+        <div class="nx-article">
+          <h3><span class="nx-article-num">4</span>Your Rights</h3>
+          <p>Depending on your location, you may have the right to access, correct, delete, or restrict processing of your personal data. Contact us to exercise these rights.</p>
+        </div>
+      </div>
+
+      <div id="privacy-cookies" class="nx-legal-panel">
+        <div class="nx-article">
+          <h3><span class="nx-article-num">5</span>Cookies &amp; Third-Party Services</h3>
+          <p>We use cookies to enhance your experience and analyse usage. You can control preferences through your browser settings. We may use third-party providers for analytics and payment processing — each governed by their own privacy policies.</p>
+        </div>
+      </div>
+
+      <div id="privacy-contact" class="nx-legal-panel">
+        <div class="nx-article">
+          <h3><span class="nx-article-num">6</span>Children's Privacy &amp; Contact</h3>
+          <p>Our services are not directed to individuals under 16 and we do not knowingly collect data from children. If you have any questions about this Privacy Policy, contact us at <a href="mailto:privacy@nexus.io">privacy@nexus.io</a>.</p>
+        </div>
+      </div>
+
+      <!-- ────────────────────────────────────────────────
+           TERMS OF SERVICE
+      ──────────────────────────────────────────────────── -->
+      <div id="terms" class="nx-legal-panel" style="margin-top:2.5rem">
+        <div class="nx-legal-panel-header">
+          <div class="nx-legal-panel-icon" style="background:#F0FDF4">
+            <i class="bi bi-file-text fs-5" style="color:#16A34A"></i>
+          </div>
+          <div>
+            <h2 class="nx-legal-panel-title">Terms of Service</h2>
+            <p class="nx-legal-date mb-0">Last updated: March 2026</p>
+          </div>
+        </div>
+        <p style="font-size:.9rem;color:var(--nx-gray);">
+          By accessing or using Nexus, you agree to be bound by these Terms.
+          If you disagree with any part, please do not use our services.
+        </p>
+      </div>
+
+      <div id="terms-accounts" class="nx-legal-panel">
+        <div class="nx-article">
+          <h3><span class="nx-article-num">1</span>Account Terms</h3>
+          <ul>
+            <li>You must be at least 18 years old to use our services</li>
+            <li>You are responsible for maintaining account security</li>
+            <li>You must provide accurate and complete information</li>
+            <li>You may not share credentials with unauthorised users</li>
+            <li>You are responsible for all activity under your account</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="terms-use" class="nx-legal-panel">
+        <div class="nx-article">
+          <h3><span class="nx-article-num">2</span>Acceptable Use</h3>
+          <p class="mb-2">You agree not to:</p>
+          <ul>
+            <li>Use our platform for any illegal purpose or to violate any laws</li>
+            <li>Attempt to gain unauthorised access to our systems</li>
+            <li>Interfere with the integrity or performance of our services</li>
+            <li>Upload malicious code, viruses, or harmful content</li>
+            <li>Reverse engineer, copy, or modify our software</li>
+            <li>Use our platform to harass, abuse, or harm others</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="terms-payment" class="nx-legal-panel">
+        <div class="nx-article">
+          <h3><span class="nx-article-num">3</span>Payments &amp; Free Trial</h3>
+          <p>Fees are billed in advance on a monthly or annual basis. We offer a 30-day free trial — unless cancelled before it ends, you will be charged the applicable subscription fee.</p>
+          <ul class="mt-2">
+            <li>All fees are non-refundable except as required by law</li>
+            <li>Pricing changes are communicated 30 days in advance</li>
+            <li>You may cancel your subscription at any time from account settings</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="terms-ip" class="nx-legal-panel">
+        <div class="nx-article">
+          <h3><span class="nx-article-num">4</span>Intellectual Property</h3>
+          <p>All platform content — code, design, text, and logos — is owned by Nexus and protected by applicable intellectual property laws. You retain ownership of data you upload; by using our services you grant us a limited licence to host and process it to deliver the platform.</p>
+        </div>
+      </div>
+
+      <div id="terms-liability" class="nx-legal-panel">
+        <div class="nx-article">
+          <h3><span class="nx-article-num">5</span>Limitation of Liability</h3>
+          <p>To the maximum extent permitted by law, Nexus is not liable for indirect, incidental, or consequential damages. Our total liability shall not exceed the amount you paid us in the preceding 12 months. Services are provided "as is" without warranties of any kind.</p>
+        </div>
+        <div class="nx-article">
+          <h3><span class="nx-article-num">6</span>Termination</h3>
+          <p>We may suspend or terminate access for violation of these Terms, non-payment, or security risk, with 30 days' notice where possible. Upon termination your right to use the services ceases immediately.</p>
+        </div>
+      </div>
+
+      <div id="terms-contact" class="nx-legal-panel">
+        <div class="nx-article">
+          <h3><span class="nx-article-num">7</span>Governing Law &amp; Contact</h3>
+          <p>These Terms are governed by applicable law. We reserve the right to update them at any time — material changes will be communicated by email. For questions contact us at <a href="mailto:legal@nexus.io">legal@nexus.io</a>.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Highlight sidebar link matching current scroll position
+  const links = document.querySelectorAll('.nx-sidebar-link');
+  const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nx-sidebar-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px' });
+
+  sections.forEach(s => { if (s) observer.observe(s); });
+</script>
+{% endblock %}

@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+{% block title %}Pricing — Nexus{% endblock %}
+{% block meta_desc %}Simple, transparent pricing for every stage of growth.{% endblock %}
+
+{% block extra_css %}
+<style>
+  .nx-plan-card {
+    background: var(--nx-white);
+    border: 1.5px solid var(--nx-border);
+    border-radius: var(--nx-radius-lg);
+    padding: 2rem;
+    transition: box-shadow .25s, transform .25s;
+    display: flex; flex-direction: column;
+  }
+  @media (max-width: 991px) {
+    .nx-plan-card { padding: 1.5rem; }
+    .nx-price { font-size: 2.2rem; }
+  }
+  .nx-plan-card:hover { box-shadow: var(--nx-shadow); transform: translateY(-3px); }
+  .nx-plan-card.featured {
+    border-color: var(--nx-blue);
+    box-shadow: 0 0 0 3px rgba(37,99,235,.1), var(--nx-shadow);
+    position: relative;
+  }
+
+  /* Current plan card gets a slate ring instead of blue */
+  .nx-plan-card.current-plan {
+    border-color: #94A3B8;
+    box-shadow: 0 0 0 3px rgba(148,163,184,.12);
+    position: relative;
+  }
+
+  .nx-plan-badge {
+    position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+    background: var(--nx-blue); color: #fff;
+    font-size: .68rem; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; padding: .25rem 1rem;
+    border-radius: 0 0 8px 8px;
+  }
+  .nx-plan-badge.current { background: #64748b; }
+
+  .nx-price { font-family: 'Sora', sans-serif; font-size: 2.8rem; font-weight: 800; line-height: 1; letter-spacing: -.03em; }
+  .nx-price sup { font-size: 1rem; vertical-align: super; }
+  .nx-price-period { font-size: .85rem; color: #94A3B8; }
+
+  .nx-check {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.1rem; height: 1.1rem; border-radius: 50%;
+    background: var(--nx-blue); color: #fff; font-size: .6rem; flex-shrink: 0;
+  }
+
+  /* ── CTA states ──────────────────────────────────────────── */
+
+  /* Current plan: static pill, no pointer */
+  .btn-nx-current {
+    display: block; text-align: center; padding: .7rem;
+    border-radius: var(--nx-radius, .5rem);
+    border: 1.5px solid #E2E8F0;
+    background: #F8FAFC;
+    color: #94A3B8;
+    font-family: 'Sora', sans-serif; font-weight: 700; font-size: .88rem;
+    cursor: default; user-select: none;
+    pointer-events: none;
+  }
+
+  /* Downgrade: barely visible, not interactive */
+  .btn-nx-downgrade {
+    display: block; text-align: center; padding: .7rem;
+    border-radius: var(--nx-radius, .5rem);
+    border: 1.5px solid #F1F5F9;
+    background: transparent;
+    color: #CBD5E1;
+    font-family: 'Sora', sans-serif; font-weight: 600; font-size: .88rem;
+    cursor: not-allowed; user-select: none;
+    pointer-events: none;
+  }
+
+  /* Upgrade: solid blue, fully clickable */
+  .btn-nx-upgrade {
+    display: block; text-align: center; padding: .7rem;
+    border-radius: var(--nx-radius, .5rem);
+    background: var(--nx-blue, #2563EB); color: #fff;
+    font-family: 'Sora', sans-serif; font-weight: 700; font-size: .88rem;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+  }
+  .btn-nx-upgrade:hover { background: #1d4ed8; transform: translateY(-1px); color: #fff; }
+  .btn-nx-upgrade:active { transform: translateY(0); }
+
+  /* ── FAQ ─────────────────────────────────────────────────── */
+  .nx-faq-item { border: 1px solid var(--nx-border); border-radius: var(--nx-radius); overflow: hidden; margin-bottom: .6rem; }
+  .nx-faq-btn {
+    width: 100%; background: var(--nx-white); border: none;
+    padding: 1rem 1.25rem;
+    font-family: 'Sora', sans-serif; font-weight: 600; font-size: .9rem;
+    display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+    transition: background .15s;
+  }
+  .nx-faq-btn:hover { background: var(--nx-light); }
+  .nx-faq-body {
+    background: var(--nx-white); padding: 0 1.25rem;
+    font-size: .9rem; color: var(--nx-gray);
+    max-height: 0; overflow: hidden;
+    transition: max-height .3s ease, padding .3s ease;
+  }
+  .nx-faq-item.open .nx-faq-body { max-height: 300px; padding: 0 1.25rem 1rem; }
+  .nx-faq-icon { transition: transform .25s; color: var(--nx-gray); }
+  .nx-faq-item.open .nx-faq-icon { transform: rotate(180deg); color: var(--nx-blue); }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="nx-section-sm text-center">
+  <div class="container">
+    <span class="nx-label">Pricing Plans</span>
+    <h1 class="mt-2 mb-2">Simple pricing. No hidden fees.</h1>
+    <p class="mx-auto" style="max-width:400px">
+      Not expensive, not cheap — exactly what it should be.
+      Start free, scale when you're ready.
+    </p>
+  </div>
+</section>
+
+<!-- Plan cards -->
+<section class="nx-section-sm" id="plan">
+  <div class="container">
+    <div class="row g-4 align-items-stretch justify-content-center">
+
+      {% for plan in plans %}
+        {% if user_subscription %}
+
+          {% if plan.pk == user_subscription.plan.pk %}
+            {% with is_current=True is_upgrade=False is_downgrade=False %}
+              {% include "partials/plan_card.html" %}
+            {% endwith %}
+
+          {% elif plan.order > user_subscription.plan.order %}
+            {% with is_current=False is_upgrade=True is_downgrade=False %}
+              {% include "partials/plan_card.html" %}
+            {% endwith %}
+
+          {% else %}
+            {% with is_current=False is_upgrade=False is_downgrade=True %}
+              {% include "partials/plan_card.html" %}
+            {% endwith %}
+
+          {% endif %}
+
+        {% else %}
+          {% with is_current=False is_upgrade=False is_downgrade=False %}
+            {% include "partials/plan_card.html" %}
+          {% endwith %}
+          
+        {% endif %}
+
+      {% empty %}
+        <p class="text-muted">No pricing plans available yet.</p>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="nx-section" style="background:var(--nx-light)">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span class="nx-label">FAQ</span>
+      <h2 class="mt-2">Frequently Asked Questions</h2>
+      <p class="mt-1">Everything you need to know before you sign up.</p>
+    </div>
+    <div style="max-width:680px; margin:auto">
+      {% for faq in faqs %}
+      <div class="nx-faq-item reveal">
+        <button class="nx-faq-btn" type="button">{{ faq.question }}<i class="bi bi-chevron-down nx-faq-icon"></i></button>
+        <div class="nx-faq-body">{{ faq.answer }}</div>
+      </div>
+      {% empty %}
+      <p class="text-muted">No frequently asked questions available.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<section class="nx-section-sm">
+  <div class="container">
+    <div class="nx-cta-banner reveal">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <h2 class="mb-1">Get started with Nexus today</h2>
+          <p class="mt-1 mb-0">Start optimising your processes — no credit card required.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <a href="#plan" class="btn-nx-primary" style="font-size:.95rem;padding:.75rem 2rem">
+            Start now — it's free
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('.nx-faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.nx-faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.nx-faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+{% endblock %}

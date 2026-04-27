@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+{% block title %}Create your account — Nexus{% endblock %}
+{% block meta_desc %}Sign up for a free Nexus account. No credit card required.{% endblock %}
+
+{% block extra_css %}
+<style>
+  .nx-auth-page {
+    min-height: calc(100vh - 70px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Visual side (left) */
+  .nx-auth-visual {
+    position: relative; overflow: hidden; background: var(--nx-navy);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 3rem;
+    order: 1;
+  }
+  .nx-auth-visual::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(80,123,216,.55) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(165,204,246,.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 60% 80%, rgba(70,98,160,.3)  0%, transparent 50%);
+    animation: meshShift 9s ease-in-out infinite alternate;
+  }
+  @keyframes meshShift {
+    0%   { transform: scale(1)    rotate(0deg); }
+    100% { transform: scale(1.07) rotate(-3deg); }
+  }
+  .nx-orb { position: absolute; border-radius: 50%; animation: orbFloat ease-in-out infinite; }
+  .nx-orb-a { width:240px;height:240px; background:rgba(37,99,235,.22); top:-50px; left:-50px; animation-duration:8s; }
+  .nx-orb-b { width:160px;height:160px; background:rgba(37,99,235,.25); bottom:-30px; right:-30px; animation-duration:10s; animation-delay:.8s; }
+  .nx-orb-c { width:90px;height:90px; background:rgba(37,99,235,.22); top:30%; right:20%; animation-duration:6s; animation-delay:1.5s; }
+  @keyframes orbFloat {
+    0%,100% { transform: translateY(0)     scale(1); }
+    50%      { transform: translateY(-16px) scale(1.05); }
+  }
+  .nx-signup-blob {
+    width: 180px; height: 180px;
+    border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+    background: linear-gradient(135deg, rgba(37,99,235,.4) 0%, rgba(37,99,235,.25) 100%);
+    animation: blobMorph 8s ease-in-out infinite;
+    margin-bottom: 2rem; position: relative; z-index: 1;
+    border: 1px solid rgba(37,99,235,.25);
+  }
+  @keyframes blobMorph {
+    0%,100% { border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%; }
+    50%      { border-radius: 60% 40% 45% 55% / 45% 55% 45% 55%; }
+  }
+  .nx-visual-content { position: relative; z-index: 1; text-align: center; }
+  .nx-visual-content h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(1.6rem, 2.5vw, 2.1rem); font-weight: 700;
+    color: #fff; line-height: 1.25; margin-bottom: 1rem;
+  }
+  .nx-visual-content p { color: rgba(255,255,255,.6); font-size: .95rem; max-width: 300px; margin: 0 auto; }
+  .nx-visual-quote {
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--nx-radius-lg); padding: 1.25rem 1.5rem;
+    margin-top: 2rem; max-width: 320px; backdrop-filter: blur(8px);
+    position: relative; z-index: 1;
+  }
+  .nx-visual-quote p { color: rgba(255,255,255,.85); font-size: .88rem; line-height: 1.6; margin-bottom: .75rem; }
+  .nx-visual-quote-author { font-size: .78rem; color: rgba(255,255,255,.5); }
+
+  /* Form side (right) */
+  .nx-auth-form-side {
+    display: flex; align-items: center; justify-content: center;
+    padding: 3rem 2rem; background: var(--nx-white);
+    order: 2;
+  }
+  .nx-auth-inner { width: 100%; max-width: 420px; }
+  .nx-auth-logo {
+    font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.25rem;
+    color: var(--nx-navy); letter-spacing: -.02em;
+    display: inline-flex; align-items: center; gap: .4rem;
+    margin-bottom: 2rem;
+  }
+  .nx-auth-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.75rem; font-weight: 700; color: var(--nx-navy);
+    line-height: 1.2; margin-bottom: .4rem;
+  }
+  .nx-form-label {
+    display: block; font-size: .82rem; font-weight: 600;
+    color: var(--nx-navy); margin-bottom: .4rem; font-family: 'Sora', sans-serif;
+  }
+  .nx-input {
+    width: 100%; border: 1.5px solid var(--nx-border);
+    border-radius: var(--nx-radius); padding: .75rem 1rem; font-size: .925rem;
+    color: var(--nx-navy); background: var(--nx-white);
+    transition: border-color .15s, box-shadow .15s; font-family: 'Inter', sans-serif;
+  }
+  .nx-input::placeholder { color: #94A3B8; }
+  .nx-input:focus {
+    outline: none; border-color: var(--nx-blue);
+    box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+  }
+  .nx-input.is-invalid { border-color: #DC2626; }
+  .nx-field-help  { font-size: .78rem; color: #94A3B8; margin-top: .3rem; }
+  .nx-field-error { font-size: .78rem; color: #DC2626; margin-top: .3rem; }
+
+  .nx-pw-wrap { position: relative; }
+  .nx-pw-wrap .nx-input { padding-right: 2.75rem; }
+  .nx-pw-toggle {
+    position: absolute; right: .85rem; top: 50%; transform: translateY(-50%);
+    background: none; border: none; padding: 0; cursor: pointer;
+    color: #94A3B8; font-size: 1rem; line-height: 1; transition: color .15s;
+  }
+  .nx-pw-toggle:hover { color: var(--nx-blue); }
+
+  .nx-auth-divider {
+    text-align: center; position: relative; margin: 1.25rem 0;
+    color: var(--nx-gray); font-size: .82rem;
+  }
+  .nx-auth-divider::before, .nx-auth-divider::after {
+    content: ''; position: absolute; top: 50%;
+    width: calc(50% - 1.5rem); height: 1px; background: var(--nx-border);
+  }
+  .nx-auth-divider::before { left: 0; }
+  .nx-auth-divider::after  { right: 0; }
+
+  @media (max-width: 991px) {
+    .nx-auth-page { grid-template-columns: 1fr; }
+    .nx-auth-visual { display: none; }
+    .nx-auth-form-side { min-height: calc(100vh - 70px); order: 1; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="nx-auth-page">
+
+  <!-- Visual side (left) -->
+  <div class="nx-auth-visual">
+    <div class="nx-orb nx-orb-a"></div>
+    <div class="nx-orb nx-orb-b"></div>
+    <div class="nx-orb nx-orb-c"></div>
+    <div class="nx-signup-blob"></div>
+    <div class="nx-visual-content">
+      <h2>Start your free<br>30-day trial.</h2>
+      <p>No credit card required. Cancel anytime.</p>
+      <div class="nx-visual-quote">
+        <p>"Since moving to Nexus our delivery time dropped by 40%. It just works."</p>
+        <span class="nx-visual-quote-author">Aisha Okonkwo · Head of Ops, Waverly</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form side (right) -->
+  <div class="nx-auth-form-side">
+    <div class="nx-auth-inner">
+      <a href="{% url 'home' %}" class="nx-auth-logo">
+        <i class="bi bi-bullseye"></i> Nexus
+      </a>
+      <p class="nx-auth-title">Create your account</p>
+      <p class="mb-4" style="color:var(--nx-gray);font-size:.9rem">
+        Free for 30 days. No credit card required.
+      </p>
+
+      <form method="post" novalidate>
+        {% csrf_token %}
+
+        <!-- Username -->
+        <div class="mb-3">
+          <label for="{{ form.username.id_for_label }}" class="nx-form-label">Username</label>
+          <input type="text" name="{{ form.username.html_name }}" id="{{ form.username.id_for_label }}" value="{{ form.username.value|default:'' }}" placeholder="Choose a username" autocomplete="username" class="nx-input {% if form.username.errors %}is-invalid{% endif %}">
+          {% if form.username.errors %}
+            <p class="nx-field-error">{{ form.username.errors|join:", " }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="{{ form.email.id_for_label }}" class="nx-form-label">Email address</label>
+          <input type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:'' }}" placeholder="you@example.com" autocomplete="email" class="nx-input {% if form.email.errors %}is-invalid{% endif %}">
+          {% if form.email.errors %}
+            <p class="nx-field-error">{{ form.email.errors|join:", " }}</p>
+          {% else %}
+            <p class="nx-field-help">Used for login and account recovery.</p>
+          {% endif %}
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="{{ form.password1.id_for_label }}" class="nx-form-label">Password</label>
+          <div class="nx-pw-wrap">
+            <input type="password" name="{{ form.password1.html_name }}" id="{{ form.password1.id_for_label }}" placeholder="Create a password" autocomplete="new-password" class="nx-input {% if form.password1.errors %}is-invalid{% endif %}">
+            <button type="button" class="nx-pw-toggle" data-target="{{ form.password1.id_for_label }}" aria-label="Toggle password visibility">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
+          {% if form.password1.errors %}
+            <p class="nx-field-error">{{ form.password1.errors|join:", " }}</p>
+          {% else %}
+            <p class="nx-field-help">Min. 8 characters.</p>
+          {% endif %}
+        </div>
+
+        <!-- Confirm password -->
+        <div class="mb-4">
+          <label for="{{ form.password2.id_for_label }}" class="nx-form-label">Confirm password</label>
+          <div class="nx-pw-wrap">
+            <input type="password" name="{{ form.password2.html_name }}" id="{{ form.password2.id_for_label }}" placeholder="Repeat your password" autocomplete="new-password" class="nx-input {% if form.password2.errors %}is-invalid{% endif %}">
+            <button type="button" class="nx-pw-toggle" data-target="{{ form.password2.id_for_label }}" aria-label="Toggle password visibility">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
+          {% if form.password2.errors %}
+            <p class="nx-field-error">{{ form.password2.errors|join:", " }}</p>
+          {% endif %}
+        </div>
+
+        <button type="submit" class="btn-nx-primary w-100"
+                style="padding:.85rem;font-size:.95rem;border-radius:var(--nx-radius);">
+          Create account <i class="bi bi-box-arrow-in-right ms-1"></i>
+        </button>
+
+        <p class="text-center mt-3 mb-0" style="font-size:.75rem;color:#94A3B8;">
+          By signing up you agree to our
+          <a href="{% url 'terms' %}" style="color:var(--nx-blue);">Terms of Service</a> and
+          <a href="{% url 'privacy' %}" style="color:var(--nx-blue);">Privacy Policy</a>.
+        </p>
+      </form>
+
+      <div class="nx-auth-divider">or</div>
+      <p class="text-center mb-0" style="font-size:.875rem;color:var(--nx-gray)">
+        Already have an account?
+        <a href="{% url 'login' %}" style="color:var(--nx-blue);font-weight:600;">Log in</a>
+      </p>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('.nx-pw-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById(btn.dataset.target);
+      const icon  = btn.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace('bi-eye', 'bi-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.replace('bi-eye-slash', 'bi-eye');
+      }
+    });
+  });
+</script>
+{% endblock %}

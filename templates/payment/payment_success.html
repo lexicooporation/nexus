@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Payment Successful — Nexus{% endblock %}
+
+{% block extra_css %}
+<style>
+  .result-page {
+    background: var(--nx-light);
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem;
+  }
+  .result-card {
+    background: #fff;
+    border: 1px solid var(--nx-border, #E2E8F0);
+    border-radius: var(--nx-radius-lg, 1rem);
+    box-shadow: 0 8px 40px rgba(0,0,0,.08);
+    width: 100%;
+    max-width: 440px;
+    padding: 3rem 2.5rem;
+    text-align: center;
+  }
+
+  .icon-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #dcfce7;
+    color: #16a34a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 1.75rem;
+  }
+
+  .result-card h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--nx-navy, #0B1120);
+    margin: 0 0 .6rem;
+  }
+  .result-card p {
+    font-size: .92rem;
+    color: var(--nx-gray, #64748b);
+    line-height: 1.65;
+    margin: 0 0 1.75rem;
+  }
+
+  /* Plan badge */
+  .plan-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--nx-blue-lt, #EFF6FF);
+    border: 1px solid #bfdbfe;
+    border-radius: .65rem;
+    padding: .6rem 1.1rem;
+    font-size: .875rem;
+    font-weight: 700;
+    color: var(--nx-blue, #2563EB);
+    margin-bottom: 2rem;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="result-page">
+  <div class="result-card">
+
+    <div class="icon-circle">
+      <i class="bi bi-check-lg"></i>
+    </div>
+
+    <h2>Payment Successful!</h2>
+    <p>
+      Your subscription is now active. Welcome to Nexus —
+      you're all set to get started.
+    </p>
+
+    {% if subscription and subscription.plan %}
+      <div class="plan-badge">
+        <i class="bi bi-tags-fill"></i>
+        {{ subscription.plan.name }} Plan &mdash; ${{ subscription.amount_paid }}/{{ subscription.plan.billing_period }}
+      </div>
+    {% endif %}
+
+    <a href="{% url 'home' %}" class="btn-nx-primary text-decoration-none d-inline-block">
+      Go to Dashboard &nbsp;<i class="bi bi-arrow-right"></i>
+    </a>
+
+  </div>
+</div>
+{% endblock %}

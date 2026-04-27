@@ -1,0 +1,270 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block content_title %}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <!-- ── Page header ──────────────────────────────────────── -->
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+      <h2 class="mb-0 fw-bold">Dashboard</h2>
+      <p class="text-muted small mb-0">Overview of your Nexus activity</p>
+    </div>
+    <span class="text-muted small">
+      <i class="fas fa-calendar-alt me-1"></i>
+      {% now "F j, Y" %}
+    </span>
+  </div>
+
+  <!-- ── Stat cards ────────────────────────────────────────── -->
+  <div class="row g-3 mb-4">
+
+    <div class="col-6 col-xl-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <p class="text-uppercase text-muted fw-bold mb-1" style="font-size:.7rem;letter-spacing:.08em">Contact Messages</p>
+              <h2 class="fw-bold mb-0" style="font-size:2.2rem">{{ total_messages }}</h2>
+              <p class="text-muted small mb-0">{{ unread_messages }} unread</p>
+            </div>
+            <div class="rounded p-2" style="background:#EFF6FF">
+              <i class="fas fa-envelope" style="color:#2563EB;font-size:1.3rem"></i>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-0 pt-0">
+          <a href="{% url 'admin:nexusApp_contactmessage_changelist' %}" class="small text-primary text-decoration-none">
+            View all <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-xl-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <p class="text-uppercase text-muted fw-bold mb-1" style="font-size:.7rem;letter-spacing:.08em">Testimonials</p>
+              <h2 class="fw-bold mb-0" style="font-size:2.2rem">{{ total_testimonials }}</h2>
+              <p class="text-muted small mb-0">{{ active_testimonials }} active</p>
+            </div>
+            <div class="rounded p-2" style="background:#FFFBEB">
+              <i class="fas fa-star" style="color:#2563EB;font-size:1.3rem"></i>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-0 pt-0">
+          <a href="{% url 'admin:nexusApp_testimonial_changelist' %}" class="small text-primary text-decoration-none">
+            View all <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-xl-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <p class="text-uppercase text-muted fw-bold mb-1" style="font-size:.7rem;letter-spacing:.08em">Pricing Plans</p>
+              <h2 class="fw-bold mb-0" style="font-size:2.2rem">{{ total_plans }}</h2>
+              <p class="text-muted small mb-0">{{ total_features }} features total</p>
+            </div>
+            <div class="rounded p-2" style="background:#F0FDF4">
+              <i class="fas fa-tags" style="color:#2563EB;font-size:1.3rem"></i>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-0 pt-0">
+          <a href="{% url 'admin:nexusApp_pricingplan_changelist' %}" class="small text-primary text-decoration-none">
+            View all <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-xl-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <p class="text-uppercase text-muted fw-bold mb-1" style="font-size:.7rem;letter-spacing:.08em">FAQs</p>
+              <h2 class="fw-bold mb-0" style="font-size:2.2rem">{{ total_faqs }}</h2>
+              <p class="text-muted small mb-0">{{ active_faqs }} active</p>
+            </div>
+            <div class="rounded p-2" style="background:#FEF2F2">
+              <i class="fas fa-question-circle" style="color:#2563EB;font-size:1.3rem"></i>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-0 pt-0">
+          <a href="{% url 'admin:nexusApp_faq_changelist' %}" class="small text-primary text-decoration-none">
+            View all <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /row -->
+
+  <!-- ── Recent messages + Quick actions ───────────────────── -->
+  <div class="row g-3">
+
+    <!-- Recent messages -->
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-header bg-transparent border-0 d-flex align-items-center justify-content-between pt-3">
+          <div>
+            <i class="fas fa-inbox me-2 text-muted"></i>
+            <span class="fw-bold">Recent Messages</span>
+          </div>
+          <a href="{% url 'admin:nexusApp_contactmessage_changelist' %}" class="small text-primary text-decoration-none">
+            View all &rarr;
+          </a>
+        </div>
+        <div class="card-body pt-2">
+          {% if recent_messages %}
+            {% for msg in recent_messages %}
+            <div class="d-flex align-items-start gap-3 py-3 {% if not forloop.last %}border-bottom{% endif %}">
+              <!-- Avatar -->
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0"
+                   style="width:38px;height:38px;background:#EFF6FF;color:#2563EB;font-size:.85rem;font-family:'Sora',sans-serif;">
+                {{ msg.full_name|first|upper }}
+              </div>
+              <!-- Content -->
+              <div class="flex-grow-1 min-w-0">
+                <div class="d-flex align-items-center gap-2 mb-1">
+                  <span class="fw-semibold small">{{ msg.full_name }}</span>
+                  {% if msg.status == 'new' %}
+                    <span class="badge rounded-pill text-bg-primary" style="font-size:.65rem">NEW</span>
+                  {% elif msg.status == 'read' %}
+                    <span class="badge rounded-pill text-bg-secondary" style="font-size:.65rem">READ</span>
+                  {% else %}
+                    <span class="badge rounded-pill text-bg-success" style="font-size:.65rem">REPLIED</span>
+                  {% endif %}
+                </div>
+                <p class="text-muted small mb-0 text-truncate" style="max-width:380px">{{ msg.message }}</p>
+              </div>
+              <!-- Time -->
+              <span class="text-muted small flex-shrink-0">{{ msg.created_at|timesince }} ago</span>
+            </div>
+            {% endfor %}
+          {% else %}
+            <div class="text-center py-5">
+              <i class="fas fa-inbox text-muted" style="font-size:2rem"></i>
+              <p class="text-muted mt-2 mb-0">No messages yet</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-header bg-transparent border-0 pt-3">
+          <i class="fas fa-bolt me-2 text-muted"></i>
+          <span class="fw-bold">Quick Actions</span>
+        </div>
+        <div class="card-body pt-2">
+
+          <a href="{% url 'admin:nexusApp_testimonial_add' %}" class="d-flex align-items-center gap-3 py-2 border-bottom text-decoration-none text-dark">
+            <div class="rounded p-2" style="background:#FFFBEB;width:34px;height:34px;display:flex;align-items:center;justify-content:center;">
+              <i class="fas fa-star" style="color:#2563EB;font-size:.85rem"></i>
+            </div>
+            <div class="flex-grow-1">
+              <p class="fw-semibold small mb-0">Add Testimonial</p>
+            </div>
+            <i class="fas fa-chevron-right text-muted small"></i>
+          </a>
+
+          <a href="{% url 'admin:nexusApp_pricingplan_add' %}" class="d-flex align-items-center gap-3 py-2 border-bottom text-decoration-none text-dark">
+            <div class="rounded p-2" style="background:#F0FDF4;width:34px;height:34px;display:flex;align-items:center;justify-content:center;">
+              <i class="fas fa-tags" style="color:#2563EB;font-size:.85rem"></i>
+            </div>
+            <div class="flex-grow-1">
+              <p class="fw-semibold small mb-0">Add Pricing Plan</p>
+            </div>
+            <i class="fas fa-chevron-right text-muted small"></i>
+          </a>
+
+          <a href="{% url 'admin:nexusApp_faq_add' %}" class="d-flex align-items-center gap-3 py-2 border-bottom text-decoration-none text-dark">
+            <div class="rounded p-2" style="background:#FEF2F2;width:34px;height:34px;display:flex;align-items:center;justify-content:center;">
+              <i class="fas fa-question-circle" style="color:#2563EB;font-size:.85rem"></i>
+            </div>
+            <div class="flex-grow-1">
+              <p class="fw-semibold small mb-0">Add FAQ</p>
+            </div>
+            <i class="fas fa-chevron-right text-muted small"></i>
+          </a>
+
+          <a href="{% url 'admin:nexusApp_teammember_add' %}" class="d-flex align-items-center gap-3 py-2 border-bottom text-decoration-none text-dark">
+            <div class="rounded p-2" style="background:#EFF6FF;width:34px;height:34px;display:flex;align-items:center;justify-content:center;">
+              <i class="fas fa-id-badge" style="color:#2563EB;font-size:.85rem"></i>
+            </div>
+            <div class="flex-grow-1">
+              <p class="fw-semibold small mb-0">Add Team Member</p>
+            </div>
+            <i class="fas fa-chevron-right text-muted small"></i>
+          </a>
+
+          <a href="{% url 'admin:nexusApp_contactmessage_changelist' %}?status__exact=new"
+             class="d-flex align-items-center gap-3 py-2 text-decoration-none text-dark">
+            <div class="rounded p-2" style="background:#EFF6FF;width:34px;height:34px;display:flex;align-items:center;justify-content:center;">
+              <i class="fas fa-envelope-open" style="color:#2563EB;font-size:.85rem"></i>
+            </div>
+            <div class="flex-grow-1">
+              <p class="fw-semibold small mb-0">Unread Messages</p>
+            </div>
+            <span class="badge rounded-pill text-bg-primary">{{ unread_messages }}</span>
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /row -->
+
+  <!-- ── Team members snapshot ────────────────────────────── -->
+  <div class="row g-3 mt-1">
+    <div class="col-12">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-transparent border-0 d-flex align-items-center justify-content-between pt-3">
+          <div>
+            <i class="fas fa-users me-2 text-muted"></i>
+            <span class="fw-bold">Team Members</span>
+          </div>
+          <a href="{% url 'admin:nexusApp_teammember_changelist' %}" class="small text-primary text-decoration-none">
+            Manage &rarr;
+          </a>
+        </div>
+        <div class="card-body">
+          {% if team_members %}
+          <div class="d-flex flex-wrap gap-3">
+            {% for m in team_members %}
+            <a href="{% url 'admin:nexusApp_teammember_change' m.pk %}" class="text-decoration-none text-center" style="width:80px">
+              <div class="rounded-circle mx-auto mb-1 d-flex align-items-center justify-content-center fw-bold"
+                   style="width:52px;height:52px;background:linear-gradient(135deg,#EFF6FF,#FDE68A);color:#2563EB;font-family:'Sora',sans-serif;font-size:1.1rem">
+                {{ m.name|first|upper }}
+              </div>
+              <p class="small fw-semibold mb-0 text-dark" style="font-size:.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.name }}</p>
+              <p class="text-muted mb-0" style="font-size:.7rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.role }}</p>
+            </a>
+            {% endfor %}
+          </div>
+          {% else %}
+            <p class="text-muted small mb-0">No team members added yet.
+              <a href="{% url 'admin:nexusApp_teammember_add' %}">Add one</a>
+            </p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+{% endblock %}

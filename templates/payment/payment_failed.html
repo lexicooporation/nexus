@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Payment Failed — Nexus{% endblock %}
+
+{% block extra_css %}
+<style>
+  .result-page {
+    background: var(--nx-light);
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem;
+  }
+  .result-card {
+    background: #fff;
+    border: 1px solid var(--nx-border, #E2E8F0);
+    border-radius: var(--nx-radius-lg, 1rem);
+    box-shadow: 0 8px 40px rgba(0,0,0,.08);
+    width: 100%;
+    max-width: 440px;
+    padding: 3rem 2.5rem;
+    text-align: center;
+  }
+
+  .icon-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #fee2e2;
+    color: #dc2626;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 1.75rem;
+  }
+
+  .result-card h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--nx-navy, #0B1120);
+    margin: 0 0 .6rem;
+  }
+  .result-card p {
+    font-size: .92rem;
+    color: var(--nx-gray, #64748b);
+    line-height: 1.65;
+    margin: 0 0 1.75rem;
+  }
+
+  .btn-ghost {
+    display: block;
+    margin-top: .85rem;
+    font-size: .85rem;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .btn-ghost:hover { color: var(--nx-blue, #2563EB); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="result-page">
+  <div class="result-card">
+
+    <div class="icon-circle">
+      <i class="bi bi-x-lg"></i>
+    </div>
+
+    <h2>Payment Failed</h2>
+    <p>
+      Something went wrong and your payment could not be processed.
+      No charge was made. Please try again or contact us if the problem persists.
+    </p>
+
+    <a href="{% url 'pricing' %}" class="btn-nx-primary text-decoration-none d-inline-block">
+      Try Again
+    </a>
+    <a href="{% url 'home' %}" class="btn-ghost">Back to home</a>
+
+  </div>
+</div>
+{% endblock %}

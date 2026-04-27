@@ -1,0 +1,69 @@
+<!-- {# templates/nexusApp/partials/plan_card.html #} -->
+
+<div class="col-sm-6 col-lg-4 reveal">
+  <div class="nx-plan-card {% if is_current %}current-plan{% elif plan.is_featured and not is_current %}featured{% endif %} h-100">
+
+    {# ── Top badge ── #}
+    {% if is_current %}
+      <span class="nx-plan-badge current">Your Plan</span>
+    {% elif plan.is_featured %}
+      <span class="nx-plan-badge">Most Popular</span>
+    {% endif %}
+
+    {# ── Plan name + price ── #}
+    <p class="fw-semibold mb-2" style="font-family:'Sora',sans-serif">{{ plan.name }}</p>
+    <div class="mb-1">
+      <span class="nx-price"><sup>$</sup>{{ plan.price|floatformat:0 }}</span>
+      <span class="nx-price-period"> / {{ plan.billing_period }}</span>
+    </div>
+    <p class="small mb-4" style="color:var(--nx-gray)">{{ plan.tagline }}</p>
+
+    {# ── CTA button — state-driven ── #}
+    <div class="mt-auto mb-0">
+      {% if is_current %}
+        {# Disabled — user already on this plan #}
+        <span class="btn-nx-current">
+          <i class="bi bi-check-circle-fill me-1"></i> Current Plan
+        </span>
+
+      {% elif is_upgrade %}
+        {# Clickable — higher tier than current plan #}
+        <a href="{% url 'checkout' plan.pk %}" class="btn-nx-upgrade">
+          <i class="bi bi-arrow-up-circle me-1"></i> Upgrade to {{ plan.name }}
+        </a>
+
+      {% elif is_downgrade %}
+        {# Disabled — lower tier, conventional to not allow downgrade from pricing page #}
+        <span class="btn-nx-downgrade">
+          {{ plan.name }}
+        </span>
+
+      {% else %}
+        {# No subscription — show the plan's own CTA label #}
+        {% if plan.is_featured %}
+          <a href="{% url 'checkout' plan.pk %}" class="btn-nx-primary d-block text-center" style="padding:.7rem">{{ plan.cta_label }}</a>
+        {% else %}
+          <a href="{% url 'checkout' plan.pk %}" class="btn-nx-outline d-block text-center" style="padding:.7rem">{{ plan.cta_label }}</a>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <hr class="my-3" style="border-color:var(--nx-border)">
+
+    {# ── Feature list ── #}
+    <ul class="list-unstyled mb-0">
+      {% for feature in plan.features.all %}
+      <li class="d-flex align-items-center gap-2 py-1">
+        <span class="nx-check">✓</span>
+        <span class="small">{{ feature.label }}</span>
+      </li>
+      {% empty %}
+      <li class="d-flex align-items-center gap-2 py-1">
+        <span class="nx-check">✓</span>
+        <span class="small">Feature details coming soon</span>
+      </li>
+      {% endfor %}
+    </ul>
+
+  </div>
+</div>

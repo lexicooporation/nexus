@@ -1,0 +1,83 @@
+# ── Python ────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+
+# ── Conda ─────────────────────────────────────────────────────
+conda-meta/
+.conda/
+*.conda
+# Remove the line below if you want to track your environment
+# environment.yml
+
+# ── Virtual environments (venv / conda envs inside project) ───
+venv/
+env/
+.env/
+.venv/
+ENV/
+# Add your conda env name here if it lives inside the project folder
+nexus_env/
+
+# ── Environment variables ─────────────────────────────────────
+.env
+.env.local
+.env.production
+.env.staging
+
+# ── Django ────────────────────────────────────────────────────
+*.log
+*.pot
+db.sqlite3
+db.sqlite3-journal
+
+# Media files (user uploads — don't commit these)
+media/
+
+# Static files collected by collectstatic
+staticfiles/
+static_root/
+
+# Django secret key / local settings override
+local_settings.py
+
+# ── Database ──────────────────────────────────────────────────
+*.sql
+*.sqlite
+
+# ── OS files ──────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ── IDEs & editors ────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# ── Testing & coverage ────────────────────────────────────────
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.tox/
+
+# ── Build / packaging ─────────────────────────────────────────
+dist/
+build/
+*.egg-info/
+*.egg
+MANIFEST
+
+# ── Jupyter ───────────────────────────────────────────────────
+.ipynb_checkpoints
+*.ipynb

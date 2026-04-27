@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+{% block title %}Nexus — Work smarter, together{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* ── Hero ───────────────────────────────────────────── */
+  .nx-hero {
+    padding: 6rem 0 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .nx-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:linear-gradient(var(--nx-border) 1px, transparent 1px),linear-gradient(90deg, var(--nx-border) 1px, transparent 1px);
+    background-size: 44px 44px;
+    opacity: .3;
+    pointer-events: none;
+  }
+  .nx-hero-content { position: relative; z-index: 1; }
+  .nx-hero .eyebrow {
+    display: inline-block;
+    font-size: .72rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--nx-blue); background: var(--nx-blue-lt);
+    padding: .28rem .9rem; border-radius: 99px; margin-bottom: 1.25rem;
+  }
+  .nx-hero h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1.1; letter-spacing: -.03em; }
+  .nx-hero h1 span { color: var(--nx-blue); }
+  .nx-hero .sub { font-size: 1.05rem; color: var(--nx-gray); max-width: 460px; line-height: 1.7; }
+  .nx-hero-blob {
+    width: 100%; aspect-ratio: 1; max-width: 400px;
+    border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+    background: linear-gradient(135deg, #BFDBFE 0%, #FDE68A 100%);
+    animation: blobMorph 9s ease-in-out infinite;
+    opacity: 1;
+  }
+  @keyframes blobMorph {
+    0%,100% { border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%; }
+    50%      { border-radius: 60% 40% 45% 55% / 45% 55% 45% 55%; }
+  }
+
+  /* ── Trust bar ──────────────────────────────────────── */
+  .nx-trust { border-top: 1px solid var(--nx-border); border-bottom: 1px solid var(--nx-border); padding: 2rem 0; background: var(--nx-white); }
+  .nx-trust-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: #94A3B8; }
+  .nx-trust-logo  { font-family: 'Sora', sans-serif; font-weight: 700; font-size: .95rem; color: #CBD5E1; }
+
+  /* ── Features ───────────────────────────────────────── */
+  .nx-feature-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 1.25rem;
+  }
+  .nx-feature-visual {
+    aspect-ratio: 1; 
+    border-radius: var(--nx-radius-lg);
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .nx-feature-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* ── How it works ───────────────────────────────────── */
+  .nx-step-num {
+    width: 2rem; height: 2rem; border-radius: 50%;
+    background: var(--nx-blue); color: #fff;
+    font-family: 'Sora', sans-serif; font-weight: 700; font-size: .8rem;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .nx-step-line { width: 2px; background: var(--nx-border); margin: .3rem 0 .3rem .3rem; flex-grow: 1; min-height: 24px; }
+
+  /* ── Testimonials ───────────────────────────────────── */
+  .nx-star { color: var(--nx-amber); letter-spacing: .05em; font-size: .95rem; }
+  .nx-testimonial-card {
+    background: var(--nx-white);
+    border: 1px solid var(--nx-border);
+    border-radius: var(--nx-radius-lg);
+    padding: 1.75rem;
+    box-shadow: var(--nx-shadow-sm);
+    display: flex; flex-direction: column; height: 100%;
+    transition: box-shadow .25s, transform .25s;
+  }
+  .nx-testimonial-card:hover { box-shadow: var(--nx-shadow); transform: translateY(-3px); }
+  .nx-testimonial-card blockquote { font-size: .95rem; color: var(--nx-navy); line-height: 1.65; flex-grow: 1; margin: 0 0 1.25rem; }
+  .nx-author-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--nx-blue-lt), #F0FDF4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .85rem; font-weight: 700; color: var(--nx-blue); flex-shrink: 0;
+    font-family: 'Sora', sans-serif;
+  }
+</style>
+{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- ── Hero ──────────────────────────────────────────────────── -->
+<section class="nx-hero">
+  
+  <div class="container nx-hero-content">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="eyebrow">Free 30-day trial</span>
+      {% include 'partials/messages.html' %}
+        <h1 class="mb-3">The smarter way<br>to run your <span>team.</span></h1>
+        <p class="sub mb-4">
+          Nexus brings projects, workflows, and performance into one clean
+          workspace — so your team stops managing tools and starts getting things done.
+        </p>
+        <div class="d-flex gap-3 flex-wrap align-items-center">
+          <a href="{% url 'pricing' %}" class="btn-nx-primary" style="font-size:.95rem;padding:.7rem 1.75rem">
+            Start free trial
+          </a>
+          <a href="#how-it-works" class="btn-nx-outline" style="font-size:.95rem;padding:.7rem 1.75rem">
+            See how it works
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6 d-none d-lg-flex justify-content-center">
+        <div class="nx-hero-blob" style="overflow: hidden;">
+          <img src="{% static 'img/nexus_6.jpg' %}" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;  " alt="Nexus dashboard">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Trust bar ─────────────────────────────────────────────── -->
+<div class="nx-trust">
+  <div class="container text-center">
+    <p class="nx-trust-label mb-3">Trusted by teams at</p>
+    <div class="d-flex justify-content-center gap-4 flex-wrap">
+      <span class="nx-trust-logo">Waverly</span>
+      <span class="nx-trust-logo">Creston</span>
+      <span class="nx-trust-logo">Pinnacle</span>
+      <span class="nx-trust-logo">Solera</span>
+      <span class="nx-trust-logo">Brightpath</span>
+      <span class="nx-trust-logo">Corvin</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Feature 1 ─────────────────────────────────────────────── -->
+<section class="nx-section reveal" style="position: relative;overflow: hidden; padding: 9rem 0; background: url('{% static 'img/nexus_1.png' %}') center/cover no-repeat;">
+  <div style="position: absolute; inset: 0; background: linear-gradient(100deg,rgba(11, 17, 32, 0.82) 0%,rgba(11, 17, 32, 0.60) 50%,rgba(11, 17, 32, 0.25) 100%);"></div>
+  <div class="container" style="position: relative; z-index: 1;">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="nx-feature-icon" style="background:rgba(255,255,255,.12)">
+          <i class="bi bi-file-earmark-bar-graph fs-3" style="color:#fff"></i>
+        </div>
+        <span class="nx-label">Smart Analytics</span>
+        <h2 class="h2 mb-3" style="color:#fff">Introducing a better way to work</h2>
+        <p class="mb-4" style="color:rgba(255,255,255,.75)">
+          Replace scattered spreadsheets and disconnected tools with Nexus's
+          unified workspace. One login. Full visibility across every project,
+          every team, every metric.
+        </p>
+        <a href="{% url 'pricing' %}" class="btn-lg btn-nx-primary">Try for free</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Feature 2 ─────────────────────────────────────────────── -->
+<section class="nx-section-sm" style="background:var(--nx-white)">
+  <div class="container">
+    <div class="row align-items-center gy-sm-2 gx-md-5 flex-md-row-reverse reveal">
+      <div class="col-md-6">
+        <div class="nx-feature-icon" style="background:#EFF6FF">
+          <i class="bi bi-shield-lock fs-3" style="color:var(--nx-blue)"></i>
+        </div>
+        <span class="nx-label">Enterprise Security</span>
+        <h2 class="h2 mb-3">All your data — safe with us</h2>
+        <p class="mb-4">
+          End-to-end encryption, SOC 2 Type II certification, and granular
+          role-based permissions mean your data stays yours, always.
+        </p>
+        <a href="{% url 'about' %}" class="btn-nx-outline">Learn more</a>
+      </div>
+      <div class="col-md-6 d-flex justify-content-center">
+        <img src="{% static 'img/nexus_5.png' %}" alt="Nexus security" style="width: 75%; max-width: 340px; height: auto;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How it works ──────────────────────────────────────────── -->
+<section class="nx-section" id="how-it-works" style="background:var(--nx-light)">
+  <div class="container">
+    <div class="nx-card reveal">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-5">
+          <span class="nx-label">Get started</span>
+          <h2 class="mb-3">Up and running in three steps</h2>
+          <p class="mb-4">No lengthy onboarding. Most teams are live and shipping the same day they sign up.</p>
+          <a href="{% url 'pricing' %}" class="btn-nx-primary">Start now — it's free</a>
+        </div>
+        <div class="col-lg-7">
+          <div class="d-flex gap-3 mb-2">
+            <div class="d-flex flex-column align-items-center">
+              <div class="nx-step-num">1</div>
+              <div class="nx-step-line"></div>
+            </div>
+            <div class="pb-4">
+              <p class="fw-semibold mb-1" style="color:var(--nx-navy)">Book an intro call</p>
+              <p class="small mb-0">A no-pressure 20-minute walkthrough with one of our specialists.</p>
+            </div>
+          </div>
+          <div class="d-flex gap-3 mb-2">
+            <div class="d-flex flex-column align-items-center">
+              <div class="nx-step-num">2</div>
+              <div class="nx-step-line"></div>
+            </div>
+            <div class="pb-4">
+              <p class="fw-semibold mb-1" style="color:var(--nx-navy)">Get your tailored setup</p>
+              <p class="small mb-0">We configure a workspace matched to your team size and goals.</p>
+            </div>
+          </div>
+          <div class="d-flex gap-3">
+            <div class="nx-step-num">3</div>
+            <div class="ps-0">
+              <p class="fw-semibold mb-1" style="color:var(--nx-navy)">Go live and grow</p>
+              <p class="small mb-0">Launch with confidence. Customer success stays with you beyond day one.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Testimonials ──────────────────────────────────────────── -->
+<section class="nx-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="nx-label">Testimonials</span>
+      <h2 class="mt-2">What our customers say</h2>
+    </div>
+    <div class="row g-4">
+      {% for t in testimonials %}
+      <div class="col-sm-6 col-md-6 col-lg-4 reveal">
+        <div class="nx-testimonial-card">
+          <div class="nx-star mb-3">{% for _ in t.stars %}★{% endfor %}</div>
+          <blockquote>"{{ t.quote }}"</blockquote>
+          <div class="d-flex align-items-center gap-2">
+            <div class="nx-author-avatar">{{ t.author_name|first }}</div>
+            <div>
+              <p class="fw-semibold small mb-0" style="color:var(--nx-navy)">{{ t.author_name }}</p>
+              <p class="small mb-0">{{ t.author_role }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-md-4 reveal">
+        <p>No testimonials available.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Banner ────────────────────────────────────────────── -->
+<section class="nx-section-sm" style="background:var(--nx-light)">
+  <div class="container">
+    <div class="nx-cta-banner reveal">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <h2 class="mb-1">Get started with Nexus today</h2>
+          <p class="mt-1 mb-0">Start optimising your processes — no credit card required.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <a href="{% url 'pricing' %}" class="btn-nx-primary" style="font-size:.95rem;padding:.75rem 2rem">
+          Get started <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
